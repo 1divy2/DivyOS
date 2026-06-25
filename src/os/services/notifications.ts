@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { playNotifSound } from "./audio";
 
 export type Notification = {
   id: string;
@@ -43,6 +44,12 @@ export const useNotifications = create<NotifState>()(
         };
         const items = [item, ...get().items].slice(0, MAX);
         set({ items });
+        
+        // Don't play sound for quiet system notifications
+        if (n.source !== "system-quiet") {
+          playNotifSound();
+        }
+        
         return id;
       },
       dismiss: (id) => set({ items: get().items.filter((i) => i.id !== id) }),

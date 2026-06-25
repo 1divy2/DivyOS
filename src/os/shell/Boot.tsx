@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../services/session";
 import { identity } from "@/content/identity";
+import { playBootSound } from "../services/audio";
 
 const LINES = [
   "DivyOS bootloader v1.0",
@@ -19,6 +20,10 @@ const LINES = [
 export function Boot() {
   const [shown, setShown] = useState(0);
   const completeBoot = useSession((s) => s.completeBoot);
+
+  useEffect(() => {
+    playBootSound();
+  }, []);
 
   useEffect(() => {
     if (shown >= LINES.length) return;
