@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type PointerEvent as RPE, type ReactNode } from "react";
+import { motion } from "motion/react";
 import { useOS, LAYOUT, type WindowState } from "./store";
 import { byId } from "./registry";
 import { AppIcon } from "./icons/AppIcon";
@@ -18,6 +19,8 @@ export function WindowFrame({ win }: { win: WindowState }) {
   const vp = useViewport();
   const drag = useRef<{ ox: number; oy: number; x: number; y: number } | null>(null);
   const resz = useRef<{ ow: number; oh: number; x: number; y: number } | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
   const app = byId(win.appId);
   const isMobile = vp.w < 640;
 
@@ -34,6 +37,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
     focus(win.id);
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
     drag.current = { ox: e.clientX, oy: e.clientY, x: win.x, y: win.y };
+    setIsDragging(true);
   };
   const onDragMove = (e: RPE<HTMLDivElement>) => {
     if (!drag.current) return;
@@ -47,6 +51,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
     else if (e.clientX >= vp.w - 4) snap(win.id, "r", vp);
     else if (e.clientY <= LAYOUT.TOP_BAR + 4) snap(win.id, "f", vp);
     drag.current = null;
+    setIsDragging(false);
   };
 
   const onResizeStart = (e: RPE<HTMLDivElement>) => {
@@ -54,6 +59,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
     e.stopPropagation();
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
     resz.current = { ow: win.w, oh: win.h, x: e.clientX, y: e.clientY };
+    setIsResizing(true);
   };
   const onResizeMove = (e: RPE<HTMLDivElement>) => {
     if (!resz.current) return;
@@ -61,20 +67,30 @@ export function WindowFrame({ win }: { win: WindowState }) {
     const nh = Math.max(220, resz.current.oh + (e.clientY - resz.current.y));
     resize(win.id, nw, nh);
   };
-  const onResizeEnd = () => { resz.current = null; };
+  const onResizeEnd = () => { 
+    resz.current = null; 
+    setIsResizing(false);
+  };
 
   const radius = isMobile ? 0 : 14;
 
   return (
-    <div
-      className="absolute flex flex-col window-in overflow-hidden"
+    <motion.div
+      className="absolute flex flex-col overflow-hidden"
+      initial={{ opacity: 0, scale: 0.95, y: y + 20 }}
+      animate={{ left: x, top: y, width: w, height: h, opacity: 1, scale: 1, y: 0 }}
+      transition={{
+        type: "spring",
+        stiffness: isDragging || isResizing ? 1000 : 300,
+        damping: isDragging || isResizing ? 40 : 25,
+        mass: 0.8,
+      }}
       style={{
-        left: x, top: y, width: w, height: h,
         zIndex: win.z,
         borderRadius: radius,
         background: "var(--os-panel)",
         backdropFilter: "blur(28px) saturate(160%)",
-        boxShadow: "var(--shadow-window)",
+        boxShadow: win.z > 100 ? "0 24px 48px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1) inset" : "var(--shadow-window)",
         color: "var(--os-ink)",
       }}
       onPointerDown={() => focus(win.id)}
@@ -114,7 +130,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
           onPointerUp={onResizeEnd}
         />
       )}
-    </div>
+    </motion.div>
   );
 }
 
