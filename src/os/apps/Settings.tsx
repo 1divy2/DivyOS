@@ -3,6 +3,7 @@ import { useOS } from "../store";
 import { useSession } from "../services/session";
 import { useWallpaper, WALLPAPERS } from "../services/wallpaper";
 import { useNotifications } from "../services/notifications";
+import { AppFrame } from "./AppFrame";
 
 const THEMES: { id: ThemeName; label: string }[] = [
   { id: "cortex", label: "Sable (default)" },
@@ -16,15 +17,21 @@ export function SettingsApp() {
   const wp = useWallpaper();
   const session = useSession();
 
+  const sidebar = (
+    <div className="p-4 space-y-1">
+      <div className="text-os-ink-faint text-[11px] uppercase tracking-wider mb-3 px-2 font-medium">Settings</div>
+      {["Wallpaper", "Appearance", "Motion", "Session", "Reset"].map((s, i) => (
+        <a key={s} href={`#section-${i}`} className="block px-3 py-2 rounded-lg text-os-ink-dim hover:text-os-ink hover:bg-white/5 transition-colors font-medium">
+          {s}
+        </a>
+      ))}
+    </div>
+  );
+
   return (
-    <div className="h-full flex" style={{ background: "var(--os-bg-2)" }}>
-      <aside className="w-44 border-r border-os-hairline p-3 text-[13px] flex-shrink-0">
-        {["Wallpaper", "Appearance", "Motion", "Session", "Reset"].map((s, i) => (
-          <a key={s} href={`#section-${i}`} className="block px-3 py-1.5 rounded-md text-os-ink-dim hover:text-os-ink hover:bg-white/5">{s}</a>
-        ))}
-      </aside>
-      <div className="flex-1 overflow-auto p-8 space-y-12">
-        <section id="section-0">
+    <AppFrame sidebar={sidebar}>
+      <div className="p-8 sm:p-12 max-w-3xl space-y-16">
+        <section id="section-0" className="scroll-mt-8">
           <H>Wallpaper</H>
           <div className="grid grid-cols-3 gap-3">
             {WALLPAPERS.map((w) => (
@@ -102,7 +109,7 @@ export function SettingsApp() {
           >Factory reset</Btn>
         </section>
       </div>
-    </div>
+    </AppFrame>
   );
 }
 
