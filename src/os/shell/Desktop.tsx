@@ -52,7 +52,7 @@ export function Desktop() {
       <Wallpaper />
       {showDesktop && (
         <DesktopContextMenu>
-          <div className="absolute inset-0">
+          <div className="absolute inset-0" inert={phase === "locked" ? "" : undefined}>
             <WidgetsLayer />
             <MenuBar />
             <DesktopIcons />
