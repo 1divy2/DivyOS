@@ -2,7 +2,7 @@ import { useOS } from "../store";
 import { apps } from "../registry";
 import { AppIcon } from "../icons/AppIcon";
 
-const DESKTOP_APPS = ["about", "projects", "resume", "terminal", "github", "gallery", "notes", "settings", "trash"];
+const DESKTOP_APPS = ["about", "projects", "resume", "terminal", "github", "gallery", "notes", "settings", "pong", "breakout", "asteroids", "trash"];
 
 export function DesktopIcons() {
   const open = useOS((s) => s.open);

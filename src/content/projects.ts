@@ -18,14 +18,24 @@ export type Project = {
 };
 
 const ENRICHMENTS: Record<string, Partial<Project>> = {
-  "cortex-ai": {
+  "parkinson-s-prediction": {
     bentoSize: "large",
+    gradient: "from-[#10B981]/20 to-[#047857]/20",
+    description: "End-to-end ML pipeline for Parkinson's disease prediction using biomedical features.",
+  },
+  "medi_frend": {
+    bentoSize: "large",
+    gradient: "from-[#3B82F6]/20 to-[#1D4ED8]/20",
+    description: "Medical assistant application for managing doctor schedules and patient appointments.",
+  },
+  "cortex-ai": {
+    bentoSize: "medium",
     gradient: "from-[#4F46E5]/20 to-[#7C3AED]/20",
     description: "cOrTeX-aI — A next-generation AI reasoning platform.",
   },
   "veritas-feed": {
-    bentoSize: "large",
-    gradient: "from-[#10B981]/20 to-[#047857]/20",
+    bentoSize: "medium",
+    gradient: "from-[#EC4899]/20 to-[#BE185D]/20",
   },
   "shoppersend": {
     bentoSize: "medium",
