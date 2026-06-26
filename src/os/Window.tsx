@@ -72,55 +72,50 @@ export function WindowFrame({ win }: { win: WindowState }) {
     setIsResizing(false);
   };
 
-  const radius = 0;
+  const radius = win.maximized ? 0 : 16;
 
   return (
     <motion.div
-      className="absolute flex flex-col overflow-hidden"
+      className="absolute flex flex-col overflow-hidden glass-strong"
       initial={{ opacity: 0, scale: 0.95, y: y + 20 }}
       animate={{ left: x, top: y, width: w, height: h, opacity: 1, scale: 1, y: 0 }}
       transition={{
-        duration: 0
+        type: "spring",
+        stiffness: 300,
+        damping: 30
       }}
       style={{
         zIndex: win.z,
         borderRadius: radius,
-        background: "var(--os-panel)",
-        boxShadow: "var(--shadow-window)",
-        border: "2px solid #1C1917",
         color: "var(--os-ink)",
       }}
       onPointerDown={() => focus(win.id)}
     >
       <div
-        className="h-8 px-2 flex items-center select-none"
+        className="h-10 px-3 flex items-center select-none border-b border-white/5 relative"
         onPointerDown={onDragStart}
         onPointerMove={onDragMove}
         onPointerUp={onDragEnd}
         onDoubleClick={() => toggleMax(win.id, vp)}
-        style={{ 
-          cursor: isMobile || win.maximized ? "default" : "grab",
-          background: "repeating-linear-gradient(to bottom, #CA8A04, #CA8A04 2px, #A16D03 2px, #A16D03 4px)",
-          borderBottom: "2px solid #1C1917"
-        }}
+        style={{ cursor: isMobile || win.maximized ? "default" : "grab" }}
       >
-        <div className="flex items-center gap-2 min-w-0 bg-[#1C1917] px-2 py-0.5 border-2 border-black" style={{ boxShadow: "var(--shadow-retro-inset)" }}>
-          <AppIcon id={app.id} size={14} />
-          <span className="text-[12px] font-bold text-[#CA8A04] truncate" style={{ fontFamily: "var(--font-display)" }}>{app.name}</span>
+        <div className="flex items-center gap-2">
+          <AppIcon id={app.id} size={16} />
+          <span className="text-[13px] font-medium tracking-wide">{app.name}</span>
           {win.title && win.title !== app.name && (
-            <span className="text-[12px] text-os-ink-faint truncate font-mono">— {win.title}</span>
+            <span className="text-[13px] text-os-ink-faint truncate">— {win.title}</span>
           )}
         </div>
         <span className="flex-1" />
         
-        {/* retro square buttons */}
-        <div className="flex items-center gap-1">
-          <SquareBtn label="_" onClick={() => minimize(win.id)} />
-          <SquareBtn label="□" onClick={() => toggleMax(win.id, vp)} />
-          <SquareBtn label="X" onClick={() => close(win.id)} />
+        {/* elegant circular buttons */}
+        <div className="flex items-center gap-2">
+          <WindowBtn type="minimize" onClick={() => minimize(win.id)} />
+          <WindowBtn type="maximize" onClick={() => toggleMax(win.id, vp)} />
+          <WindowBtn type="close" onClick={() => close(win.id)} />
         </div>
       </div>
-      <div className="flex-1 overflow-auto" style={{ background: "var(--os-bg-2)" }}>
+      <div className="flex-1 overflow-auto bg-black/20">
         <Comp payload={win.payload} />
       </div>
       {!isMobile && !win.maximized && (
@@ -136,20 +131,20 @@ export function WindowFrame({ win }: { win: WindowState }) {
   );
 }
 
-function SquareBtn({ label, onClick }: { label: string; onClick: () => void }) {
-  const [pressed, setPressed] = useState(false);
+function WindowBtn({ type, onClick }: { type: "minimize" | "maximize" | "close"; onClick: () => void }) {
+  const [hovered, setHovered] = useState(false);
+  const isClose = type === "close";
   return (
     <button
-      onPointerDown={(e) => { e.stopPropagation(); setPressed(true); }}
-      onPointerUp={(e) => { e.stopPropagation(); setPressed(false); onClick(); }}
-      onPointerLeave={() => setPressed(false)}
-      className="w-5 h-5 flex items-center justify-center bg-[#44403C] text-[#E8E6E1] text-[10px] font-bold border border-black"
-      style={{
-        boxShadow: pressed ? "var(--shadow-retro-inset)" : "var(--shadow-retro-outset)",
-        fontFamily: "var(--font-mono)"
-      }}
+      onPointerDown={(e) => { e.stopPropagation(); }}
+      onClick={(e) => { e.stopPropagation(); onClick(); }}
+      onPointerEnter={() => setHovered(true)}
+      onPointerLeave={() => setHovered(false)}
+      className={`w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors ${isClose && hovered ? "bg-os-error" : "bg-white/10 hover:bg-white/20"}`}
     >
-      {label}
+      <span className={`text-[10px] leading-none transition-opacity ${hovered ? "opacity-100" : "opacity-0"} ${isClose && hovered ? "text-white" : "text-white/70"}`}>
+        {type === "close" ? "×" : type === "minimize" ? "−" : "+"}
+      </span>
     </button>
   );
 }

@@ -21,12 +21,12 @@ export function Dock() {
   const influence = 90;
 
   return (
-    <div className="absolute bottom-0 inset-x-0 z-50 flex items-center justify-center bg-[#1C1917] border-t-2 border-black" style={{ boxShadow: "var(--shadow-retro-outset)" }}>
+    <div className="absolute bottom-4 inset-x-0 z-50 flex items-center justify-center pointer-events-none">
       <div
         ref={ref}
         onPointerMove={(e) => setMx(e.clientX)}
         onPointerLeave={() => setMx(null)}
-        className="pointer-events-auto flex items-center gap-1.5 px-3 py-1"
+        className="pointer-events-auto flex items-end gap-3 px-4 h-16 glass-strong rounded-2xl relative"
       >
         {dockApps.map((a, idx) => {
           const w = windows.find((w) => w.appId === a.id);
@@ -51,15 +51,15 @@ export function Dock() {
                       open(a.id, { title: a.name, size: a.defaultSize });
                     }
                   }}
-                  className="relative group flex flex-col items-center justify-center transition-none border border-transparent hover:border-black hover:bg-[#CA8A04] hover:text-[#1C1917] p-1"
+                  className="relative group flex flex-col items-center justify-center rounded-xl hover:bg-white/5 pb-2 transition-colors"
                   style={{ width: size, height: size }}
                 >
-                  <AppIcon id={a.id} size={size - 8} />
-                  <span className={`absolute bottom-0.5 w-1 h-1 rounded-none transition-none ${running ? "bg-[#E8E6E1]" : "bg-transparent"}`} />
+                  <AppIcon id={a.id} size={size - 12} />
+                  <span className={`absolute bottom-1 w-1.5 h-1.5 rounded-full transition-all duration-300 ${running ? "bg-os-amber shadow-[0_0_6px_var(--os-amber)]" : "bg-transparent scale-0"}`} />
                 </button>
               </CM.Trigger>
               <CM.Portal>
-                <CM.Content className="bg-[#1C1917] border border-black p-1 text-[13px] min-w-[160px] z-[100]" style={{ boxShadow: "var(--shadow-retro-outset)", fontFamily: "var(--font-mono)" }}>
+                <CM.Content className="glass-strong rounded-xl border border-white/10 p-1.5 text-[13px] min-w-[160px] z-[100] animate-in fade-in zoom-in-95 duration-200">
                   <CMI onSelect={() => open(a.id, { title: a.name, size: a.defaultSize })}>Open</CMI>
                   {w && <CMI onSelect={() => minimize(w.id)}>{w.minimized ? "Restore" : "Minimize"}</CMI>}
                   {w && <CMI onSelect={() => close(w.id)} danger>Quit</CMI>}
@@ -75,7 +75,7 @@ export function Dock() {
 
 function CMI({ children, onSelect, danger }: { children: React.ReactNode; onSelect: () => void; danger?: boolean }) {
   return (
-    <CM.Item onSelect={onSelect} className={`px-3 py-1 outline-none cursor-default flex items-center gap-2 ${danger ? "text-os-error hover:bg-[#F26D6D] data-[highlighted]:bg-[#F26D6D] hover:text-black data-[highlighted]:text-black" : "hover:bg-[#CA8A04] data-[highlighted]:bg-[#CA8A04] hover:text-[#1C1917] data-[highlighted]:text-[#1C1917]"}`}>
+    <CM.Item onSelect={onSelect} className={`px-3 py-1.5 rounded-md outline-none cursor-default flex items-center gap-2 transition-colors ${danger ? "text-os-error hover:bg-os-error/20 data-[highlighted]:bg-os-error/20" : "hover:bg-white/10 data-[highlighted]:bg-white/10"}`}>
       {children}
     </CM.Item>
   );

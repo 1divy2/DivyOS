@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -64,9 +64,9 @@
   --color-os-text-faint: var(--os-ink-faint);
   --color-os-signal-dim: var(--os-mint);
 
-  --font-mono: "VT323", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans: "VT323", "Inter Tight", "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Press Start 2P", "Fraunces", "Inter Tight", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter", system-ui, sans-serif;
 }
 
 :root {
@@ -92,17 +92,17 @@
   --input: oklch(0.30 0.014 250);
   --ring: oklch(0.78 0.13 280);
 
-  /* DivyOS Retro Dark Theme tokens */
-  --os-bg:        #004b4b; /* deep dark teal */
-  --os-bg-2:      #003b3b;
-  --os-panel:     #1C1917; /* solid dark stone */
-  --os-panel-2:   #44403C;
-  --os-glass:     #1C1917;
-  --os-hairline:  #44403C;
-  --os-stroke:    #44403C;
-  --os-ink:       #E8E6E1;
-  --os-ink-dim:   #A6A8AE;
-  --os-ink-faint: #6E7079;
+  /* DivyOS Premium Dark Theme tokens */
+  --os-bg:        #0C0A09; /* pitch black / dark stone */
+  --os-bg-2:      #1C1917;
+  --os-panel:     rgba(28, 25, 23, 0.7); /* translucent */
+  --os-panel-2:   rgba(68, 64, 60, 0.7);
+  --os-glass:     rgba(28, 25, 23, 0.65);
+  --os-hairline:  rgba(255, 255, 255, 0.1);
+  --os-stroke:    rgba(255, 255, 255, 0.15);
+  --os-ink:       #FAFAF9;
+  --os-ink-dim:   #A8A29E;
+  --os-ink-faint: #78716C;
   --os-iris:      #A8B4FF;
   --os-amber:     #CA8A04; /* gold / CTA */
   --os-rose:      #E89BAE;
@@ -111,12 +111,10 @@
   --os-warn:      #F2C779;
   --os-error:     #F26D6D;
 
-  --shadow-retro-outset: inset 1px 1px 0px rgba(255,255,255,0.4), inset -1px -1px 0px rgba(0,0,0,0.8), 2px 2px 0px rgba(0,0,0,0.5);
-  --shadow-retro-inset: inset 2px 2px 0px rgba(0,0,0,0.8), inset -1px -1px 0px rgba(255,255,255,0.2);
-  --shadow-window: inset 2px 2px 0px rgba(255,255,255,0.5), inset -2px -2px 0px rgba(0,0,0,1), 4px 4px 0px rgba(0,0,0,0.8);
-  --shadow-glow-iris:  0 0 60px -10px rgba(168,180,255,0.4);
-  --shadow-soft: var(--shadow-retro-outset);
-  --shadow-medium: var(--shadow-retro-outset);
+  --shadow-window: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+  --shadow-glow-iris: 0 0 60px -10px rgba(168,180,255,0.2);
+  --shadow-soft: 0 4px 12px rgba(0,0,0,0.2);
+  --shadow-medium: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 @layer base {
@@ -138,16 +136,22 @@
 @utility hairline { border: 1px solid var(--os-hairline); }
 @utility glass {
   background: var(--os-glass);
-  box-shadow: var(--shadow-retro-outset);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--os-hairline);
 }
 @utility glass-strong {
   background: var(--os-panel);
-  box-shadow: var(--shadow-retro-inset);
+  backdrop-filter: blur(32px) saturate(1.8);
+  -webkit-backdrop-filter: blur(32px) saturate(1.8);
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--os-hairline);
 }
 
 @keyframes os-cursor-blink { 0%,49% { opacity: 1 } 50%,100% { opacity: 0 } }
 @keyframes os-boot-fade { from { opacity: 0; transform: scale(0.98) } to { opacity: 1; transform: scale(1) } }
-@keyframes os-window-in { from { opacity: 1; } to { opacity: 1; } } /* Instant */
+@keyframes os-window-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 @keyframes os-fade-out { to { opacity: 0; transform: scale(1.02) } }
 @keyframes notif-in { from { opacity: 0; transform: translateX(20px) scale(0.95); } to { opacity: 1; transform: translateX(0) scale(1); } }
 @keyframes notif-slide { from { transform: translateX(100%); } to { transform: translateX(0); } }
@@ -156,4 +160,4 @@
 @keyframes shimmer { to { background-position: 200% 0 } }
 
 .os-cursor { display:inline-block; width:0.6ch; height:1em; background: var(--os-signal); vertical-align: -2px; animation: os-cursor-blink 1s steps(1) infinite; }
-.window-in { animation: none; } /* Instant snap for windows */
+.window-in { animation: os-window-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }

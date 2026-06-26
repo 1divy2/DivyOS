@@ -2,12 +2,12 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type WallpaperId =
-  | "aurora"
-  | "constellation"
-  | "meridian"
-  | "dune"
-  | "glass"
-  | "paper";
+  | "teal"
+  | "crimson"
+  | "obsidian"
+  | "matrix"
+  | "amber"
+  | "navy";
 
 export type Wallpaper = {
   id: WallpaperId;
@@ -17,12 +17,12 @@ export type Wallpaper = {
 };
 
 export const WALLPAPERS: Wallpaper[] = [
-  { id: "aurora",        name: "Aurora",        description: "Drifting iris light",        palette: ["#0B0D12", "#1A2244", "#A8B4FF"] },
-  { id: "constellation", name: "Constellation", description: "Quiet stars and a comet",    palette: ["#070912", "#0F1228", "#E8E6E1"] },
-  { id: "meridian",      name: "Meridian",      description: "Minimal gradient horizon",   palette: ["#0E1118", "#2E2A3F", "#E8B57A"] },
-  { id: "dune",          name: "Dune",          description: "Procedural sunset dunes",    palette: ["#1A0F0A", "#5A2C1F", "#E89BAE"] },
-  { id: "glass",         name: "Glass",         description: "Frosted iridescent shapes",  palette: ["#0B0D12", "#1C2030", "#8EE3B0"] },
-  { id: "paper",         name: "Paper",         description: "Light cream — for day",      palette: ["#F2EFE8", "#E5DFD2", "#2A2520"] },
+  { id: "teal",     name: "Deep Teal",     description: "Classic retro desktop",   palette: ["#004b4b", "#004b4b", "#004b4b"] },
+  { id: "crimson",  name: "Crimson",       description: "Dark red operation",      palette: ["#4b0000", "#4b0000", "#4b0000"] },
+  { id: "obsidian", name: "Obsidian",      description: "Pitch black terminal",    palette: ["#0a0a0a", "#0a0a0a", "#0a0a0a"] },
+  { id: "matrix",   name: "Matrix",        description: "Hacker green grid",       palette: ["#001a00", "#001a00", "#001a00"] },
+  { id: "amber",    name: "Amber",         description: "Vintage phosphor glow",   palette: ["#2b1a00", "#2b1a00", "#2b1a00"] },
+  { id: "navy",     name: "Midnight",      description: "Deep blue sea",           palette: ["#001133", "#001133", "#001133"] },
 ];
 
 type WallpaperState = {
@@ -33,12 +33,12 @@ type WallpaperState = {
 export const useWallpaper = create<WallpaperState>()(
   persist(
     (set) => ({
-      wallpaperId: "aurora",
+      wallpaperId: "teal",
       setWallpaper: (wallpaperId) => set({ wallpaperId }),
     }),
     {
-      name: "divyos:wallpaper:v2",
-      migrate: () => ({ wallpaperId: "aurora" as WallpaperId, setWallpaper: () => {} }),
+      name: "divyos:wallpaper:v3",
+      migrate: () => ({ wallpaperId: "teal" as WallpaperId, setWallpaper: () => {} }),
     },
   ),
 );

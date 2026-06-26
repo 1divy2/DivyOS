@@ -29,17 +29,17 @@ export function MenuBar() {
   const date = t ? t.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" }) : "";
 
   return (
-    <div className="absolute top-0 inset-x-0 h-8 z-50 flex items-center px-3 gap-1 text-[13px] bg-[#1C1917] border-b-2 border-black shadow-sm" style={{ fontFamily: "var(--font-mono)" }}>
+    <div className="absolute top-0 inset-x-0 h-9 z-50 flex items-center px-3 gap-1 text-[13px] glass border-t-0 border-x-0 border-b border-white/10 font-medium" style={{ fontFamily: "var(--font-sans)" }}>
       {/* Divy menu */}
       <DM.Root>
         <DM.Trigger asChild>
-          <button className="px-2 py-1 hover:bg-[#CA8A04] hover:text-[#1C1917] transition flex items-center gap-1.5 font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-os-iris shadow-[0_0_6px_var(--os-iris)]" />
+          <button className="px-2 py-1.5 rounded-md hover:bg-white/10 transition flex items-center gap-1.5 font-bold">
+            <span className="w-1.5 h-1.5 rounded-full bg-os-amber shadow-[0_0_8px_var(--os-amber)]" />
             <span className="font-semibold tracking-tight">Divy</span>
           </button>
         </DM.Trigger>
         <DM.Portal>
-          <DM.Content sideOffset={0} align="start" className="bg-[#1C1917] border border-black p-1 text-[13px] min-w-[200px] z-[100]" style={{ boxShadow: "var(--shadow-retro-outset)" }}>
+          <DM.Content sideOffset={4} align="start" className="glass-strong rounded-xl border border-white/10 p-1.5 text-[13px] min-w-[200px] z-[100] animate-in fade-in zoom-in-95 duration-200">
             <Item onSelect={() => open("about")}>About DivyOS</Item>
             <Sep />
             <Item onSelect={() => open("settings")}>Settings…</Item>
@@ -64,7 +64,7 @@ export function MenuBar() {
       {/* Spotlight */}
       <button
         onClick={() => openLauncher(true)}
-        className="px-2.5 py-1 hover:bg-[#CA8A04] hover:text-[#1C1917] transition flex items-center gap-1.5"
+        className="px-2.5 py-1.5 rounded-md hover:bg-white/10 transition flex items-center gap-1.5"
         title="Search (⌘K)"
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.4"/><line x1="9.5" y1="9.5" x2="12" y2="12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>
@@ -74,18 +74,18 @@ export function MenuBar() {
       {/* Wallpaper quick pick */}
       <DM.Root>
         <DM.Trigger asChild>
-          <button className="px-2 py-1 hover:bg-[#CA8A04] hover:text-[#1C1917] transition" title="Wallpaper">
+          <button className="px-2 py-1.5 rounded-md hover:bg-white/10 transition" title="Wallpaper">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><circle cx="5" cy="6" r="1" fill="currentColor"/><path d="M2 10 L6 7 L9 9 L12 6 V11 H2 Z" fill="currentColor" opacity="0.7"/></svg>
           </button>
         </DM.Trigger>
         <DM.Portal>
-          <DM.Content sideOffset={0} align="end" className="bg-[#1C1917] border border-black p-1 text-[13px] min-w-[180px] z-[100]" style={{ boxShadow: "var(--shadow-retro-outset)" }}>
+          <DM.Content sideOffset={4} align="end" className="glass-strong rounded-xl border border-white/10 p-1.5 text-[13px] min-w-[180px] z-[100] animate-in fade-in zoom-in-95 duration-200">
             {WALLPAPERS.map(w => (
               <Item key={w.id} onSelect={() => wp.setWallpaper(w.id)}>
                 <span className="flex items-center gap-2 w-full">
-                  <span className="w-4 h-4 rounded" style={{ background: `linear-gradient(135deg, ${w.palette[0]}, ${w.palette[1]} 60%, ${w.palette[2]})` }}/>
+                  <span className="w-4 h-4 rounded-md shadow-sm border border-white/10" style={{ background: `linear-gradient(135deg, ${w.palette[0]}, ${w.palette[1]} 60%, ${w.palette[2]})` }}/>
                   <span className="flex-1">{wallpaperLabel(w.id)}</span>
-                  {wp.wallpaperId === w.id && <span className="text-os-iris">✓</span>}
+                  {wp.wallpaperId === w.id && <span className="text-os-amber">✓</span>}
                 </span>
               </Item>
             ))}
@@ -93,9 +93,9 @@ export function MenuBar() {
         </DM.Portal>
       </DM.Root>
 
-      <div className="flex items-center gap-2.5 ml-1 pl-3 border-l border-black">
+      <div className="flex items-center gap-2.5 ml-1 pl-3 border-l border-white/10">
         <span className="text-os-ink-dim hidden md:inline">{date}</span>
-        <span className="tabular-nums font-medium">{time}</span>
+        <span className="tabular-nums font-semibold">{time}</span>
       </div>
     </div>
   );
@@ -103,12 +103,12 @@ export function MenuBar() {
 
 function Item({ children, onSelect }: { children: React.ReactNode; onSelect?: () => void }) {
   return (
-    <DM.Item onSelect={onSelect} className="px-3 py-1 outline-none cursor-default hover:bg-[#CA8A04] data-[highlighted]:bg-[#CA8A04] hover:text-[#1C1917] data-[highlighted]:text-[#1C1917] flex items-center gap-2">
+    <DM.Item onSelect={onSelect} className="px-3 py-1.5 rounded-md outline-none cursor-default hover:bg-white/10 data-[highlighted]:bg-white/10 flex items-center gap-2 transition-colors">
       {children}
     </DM.Item>
   );
 }
-function Sep() { return <DM.Separator className="h-[2px] bg-black my-1" />; }
+function Sep() { return <DM.Separator className="h-px bg-white/10 my-1" />; }
 function Kbd({ children }: { children: React.ReactNode }) {
   return <span className="ml-auto text-os-ink-faint text-[11px]">{children}</span>;
 }
