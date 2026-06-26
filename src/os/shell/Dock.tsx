@@ -6,11 +6,6 @@ import * as CM from "@radix-ui/react-context-menu";
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "motion/react";
 
 export function Dock() {
-  const open = useOS((s) => s.open);
-  const windows = useOS((s) => s.windows);
-  const focus = useOS((s) => s.focus);
-  const minimize = useOS((s) => s.minimize);
-  const close = useOS((s) => s.close);
   const dockApps = apps.filter((a) => a.inDock);
   const [isTouch, setIsTouch] = useState(false);
   useEffect(() => { setIsTouch(window.matchMedia("(hover: none)").matches); }, []);
@@ -22,19 +17,24 @@ export function Dock() {
       <div
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        className="pointer-events-auto flex items-end gap-3 px-4 h-16 glass-strong rounded-2xl relative"
+        className="pointer-events-auto flex items-end gap-3 px-4 h-16 glass-strong rounded-2xl relative will-change-transform"
       >
         {dockApps.map((a) => {
-          const w = windows.find((w) => w.appId === a.id);
-          const running = !!w;
-          return <DockItem key={a.id} a={a} running={running} mouseX={mouseX} isTouch={isTouch} open={open} focus={focus} minimize={minimize} close={close} w={w} />
+          return <DockItem key={a.id} a={a} mouseX={mouseX} isTouch={isTouch} />
         })}
       </div>
     </div>
   );
 }
 
-function DockItem({ a, running, mouseX, isTouch, open, focus, minimize, close, w }: any) {
+function DockItem({ a, mouseX, isTouch }: any) {
+  const open = useOS((s) => s.open);
+  const focus = useOS((s) => s.focus);
+  const minimize = useOS((s) => s.minimize);
+  const close = useOS((s) => s.close);
+  const w = useOS((s) => s.windows.find((win) => win.appId === a.id));
+  const running = !!w;
+  
   const ref = useRef<HTMLButtonElement>(null);
   const [hovered, setHovered] = useState(false);
   
@@ -61,7 +61,7 @@ function DockItem({ a, running, mouseX, isTouch, open, focus, minimize, close, w
               open(a.id, { title: a.name, size: a.defaultSize });
             }
           }}
-          className="relative group flex flex-col items-center justify-center rounded-xl hover:bg-white/5 pb-2 transition-colors origin-bottom"
+          className="relative group flex flex-col items-center justify-center rounded-xl hover:bg-white/5 pb-2 transition-colors origin-bottom will-change-transform"
           style={{ width, height: width }}
         >
           <AnimatePresence>
@@ -71,7 +71,7 @@ function DockItem({ a, running, mouseX, isTouch, open, focus, minimize, close, w
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 5, scale: 0.9 }}
                 transition={{ duration: 0.15 }}
-                className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-black/60 backdrop-blur-md text-white/90 text-[11px] font-medium tracking-wide rounded-lg whitespace-nowrap shadow-lg border border-white/10 pointer-events-none"
+                className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-black/60 backdrop-blur-md text-white/90 text-[11px] font-medium tracking-wide rounded-lg whitespace-nowrap shadow-lg border border-white/10 pointer-events-none will-change-transform"
               >
                 {a.name}
               </motion.div>

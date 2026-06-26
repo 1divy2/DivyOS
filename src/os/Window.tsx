@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, type PointerEvent as RPE, type ReactNode } from "react";
 import { motion, useDragControls } from "motion/react";
 import { useOS, LAYOUT, type WindowState } from "./store";
+import { useShallow } from "zustand/react/shallow";
 import { byId } from "./registry";
 import { AppIcon } from "./icons/AppIcon";
 
@@ -14,7 +15,8 @@ function useViewport() {
   return vp;
 }
 
-export const WindowFrame = React.memo(function WindowFrame({ win }: { win: WindowState }) {
+export const WindowFrame = React.memo(function WindowFrame({ id }: { id: string }) {
+  const win = useOS((s) => s.windows.find((w) => w.id === id));
   const focus = useOS((s) => s.focus);
   const close = useOS((s) => s.close);
   const minimize = useOS((s) => s.minimize);
@@ -36,7 +38,7 @@ export const WindowFrame = React.memo(function WindowFrame({ win }: { win: Windo
   const w = isMobile ? vp.w : localSize ? localSize.w : win.w;
   const h = isMobile ? vp.h : localSize ? localSize.h : win.h;
 
-  if (!app || win.minimized) return null;
+  if (!win || !app || win.minimized) return null;
   const Comp = app.component;
 
   const onResizeStart = (e: RPE<HTMLDivElement>) => {
@@ -64,7 +66,7 @@ export const WindowFrame = React.memo(function WindowFrame({ win }: { win: Windo
   return (
     <motion.div
       ref={nodeRef}
-      className="absolute flex flex-col overflow-hidden glass-strong shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_20px_40px_-10px_rgba(0,0,0,0.5)]"
+      className="absolute flex flex-col overflow-hidden glass-strong shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_20px_40px_-10px_rgba(0,0,0,0.5)] will-change-transform"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ x, y, width: w, height: h, opacity: 1, scale: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -198,10 +200,10 @@ function WindowBtn({ type, onClick }: { type: "minimize" | "maximize" | "close";
 }
 
 export function WindowLayer({ children }: { children?: ReactNode }) {
-  const windows = useOS((s) => s.windows);
+  const windowIds = useOS(useShallow((s) => s.windows.map((w) => w.id)));
   return (
     <div className="absolute inset-0 pointer-events-none [&>*]:pointer-events-auto">
-      {windows.map((w) => <WindowFrame key={w.id} win={w} />)}
+      {windowIds.map((id) => <WindowFrame key={id} id={id} />)}
       {children}
     </div>
   );
