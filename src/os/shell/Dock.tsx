@@ -21,12 +21,12 @@ export function Dock() {
   const influence = 90;
 
   return (
-    <div className="absolute bottom-0 inset-x-0 z-50 flex items-end justify-center pointer-events-none pb-2">
+    <div className="absolute bottom-0 inset-x-0 z-50 flex items-center justify-center bg-[#1C1917] border-t-2 border-black" style={{ boxShadow: "var(--shadow-retro-outset)" }}>
       <div
         ref={ref}
         onPointerMove={(e) => setMx(e.clientX)}
         onPointerLeave={() => setMx(null)}
-        className="pointer-events-auto flex items-end gap-1.5 px-3 py-2 rounded-2xl glass-strong shadow-[var(--shadow-medium)]"
+        className="pointer-events-auto flex items-center gap-1.5 px-3 py-1"
       >
         {dockApps.map((a, idx) => {
           const w = windows.find((w) => w.appId === a.id);
@@ -51,16 +51,15 @@ export function Dock() {
                       open(a.id, { title: a.name, size: a.defaultSize });
                     }
                   }}
-                  className="relative group flex flex-col items-center justify-end transition-[width,height] duration-150 ease-out"
+                  className="relative group flex flex-col items-center justify-center transition-none border border-transparent hover:border-black hover:bg-[#CA8A04] hover:text-[#1C1917] p-1"
                   style={{ width: size, height: size }}
                 >
-                  <AppIcon id={a.id} size={size} />
-                  <span className={`absolute -bottom-1 w-1 h-1 rounded-full transition ${running ? "bg-os-ink" : "bg-transparent"}`} />
-                  <span className="absolute -top-8 px-2 py-1 rounded-md glass-strong text-[11px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-md">{a.name}</span>
+                  <AppIcon id={a.id} size={size - 8} />
+                  <span className={`absolute bottom-0.5 w-1 h-1 rounded-none transition-none ${running ? "bg-[#E8E6E1]" : "bg-transparent"}`} />
                 </button>
               </CM.Trigger>
               <CM.Portal>
-                <CM.Content className="glass-strong rounded-xl p-1 text-[13px] min-w-[160px] shadow-[var(--shadow-medium)] z-[100]">
+                <CM.Content className="bg-[#1C1917] border border-black p-1 text-[13px] min-w-[160px] z-[100]" style={{ boxShadow: "var(--shadow-retro-outset)", fontFamily: "var(--font-mono)" }}>
                   <CMI onSelect={() => open(a.id, { title: a.name, size: a.defaultSize })}>Open</CMI>
                   {w && <CMI onSelect={() => minimize(w.id)}>{w.minimized ? "Restore" : "Minimize"}</CMI>}
                   {w && <CMI onSelect={() => close(w.id)} danger>Quit</CMI>}
@@ -76,7 +75,7 @@ export function Dock() {
 
 function CMI({ children, onSelect, danger }: { children: React.ReactNode; onSelect: () => void; danger?: boolean }) {
   return (
-    <CM.Item onSelect={onSelect} className={`px-3 py-1.5 rounded-md outline-none cursor-default flex items-center gap-2 ${danger ? "text-os-error hover:bg-os-error/15 data-[highlighted]:bg-os-error/15" : "text-os-ink hover:bg-os-iris/20 data-[highlighted]:bg-os-iris/20"}`}>
+    <CM.Item onSelect={onSelect} className={`px-3 py-1 outline-none cursor-default flex items-center gap-2 ${danger ? "text-os-error hover:bg-[#F26D6D] data-[highlighted]:bg-[#F26D6D] hover:text-black data-[highlighted]:text-black" : "hover:bg-[#CA8A04] data-[highlighted]:bg-[#CA8A04] hover:text-[#1C1917] data-[highlighted]:text-[#1C1917]"}`}>
       {children}
     </CM.Item>
   );

@@ -72,7 +72,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
     setIsResizing(false);
   };
 
-  const radius = isMobile ? 0 : 14;
+  const radius = 0;
 
   return (
     <motion.div
@@ -80,43 +80,45 @@ export function WindowFrame({ win }: { win: WindowState }) {
       initial={{ opacity: 0, scale: 0.95, y: y + 20 }}
       animate={{ left: x, top: y, width: w, height: h, opacity: 1, scale: 1, y: 0 }}
       transition={{
-        type: "spring",
-        stiffness: isDragging || isResizing ? 1000 : 300,
-        damping: isDragging || isResizing ? 40 : 25,
-        mass: 0.8,
+        duration: 0
       }}
       style={{
         zIndex: win.z,
         borderRadius: radius,
         background: "var(--os-panel)",
-        backdropFilter: "blur(28px) saturate(160%)",
-        boxShadow: win.z > 100 ? "0 24px 48px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1) inset" : "var(--shadow-window)",
+        boxShadow: "var(--shadow-window)",
+        border: "2px solid #1C1917",
         color: "var(--os-ink)",
       }}
       onPointerDown={() => focus(win.id)}
     >
       <div
-        className="h-10 px-3 flex items-center gap-3 select-none border-b border-os-hairline"
+        className="h-8 px-2 flex items-center select-none"
         onPointerDown={onDragStart}
         onPointerMove={onDragMove}
         onPointerUp={onDragEnd}
         onDoubleClick={() => toggleMax(win.id, vp)}
-        style={{ cursor: isMobile || win.maximized ? "default" : "grab" }}
+        style={{ 
+          cursor: isMobile || win.maximized ? "default" : "grab",
+          background: "repeating-linear-gradient(to bottom, #CA8A04, #CA8A04 2px, #A16D03 2px, #A16D03 4px)",
+          borderBottom: "2px solid #1C1917"
+        }}
       >
-        {/* traffic lights */}
-        <div className="flex items-center gap-1.5">
-          <TLight color="#F26D6D" hover="×" onClick={() => close(win.id)} />
-          <TLight color="#F2C779" hover="–" onClick={() => minimize(win.id)} />
-          <TLight color="#8EE3B0" hover="+" onClick={() => toggleMax(win.id, vp)} />
-        </div>
-        <div className="flex items-center gap-2 min-w-0">
-          <AppIcon id={app.id} size={18} />
-          <span className="text-[13px] font-medium text-os-ink truncate" style={{ fontFamily: "var(--font-sans)" }}>{app.name}</span>
+        <div className="flex items-center gap-2 min-w-0 bg-[#1C1917] px-2 py-0.5 border-2 border-black" style={{ boxShadow: "var(--shadow-retro-inset)" }}>
+          <AppIcon id={app.id} size={14} />
+          <span className="text-[12px] font-bold text-[#CA8A04] truncate" style={{ fontFamily: "var(--font-display)" }}>{app.name}</span>
           {win.title && win.title !== app.name && (
-            <span className="text-[12px] text-os-ink-faint truncate">— {win.title}</span>
+            <span className="text-[12px] text-os-ink-faint truncate font-mono">— {win.title}</span>
           )}
         </div>
         <span className="flex-1" />
+        
+        {/* retro square buttons */}
+        <div className="flex items-center gap-1">
+          <SquareBtn label="_" onClick={() => minimize(win.id)} />
+          <SquareBtn label="□" onClick={() => toggleMax(win.id, vp)} />
+          <SquareBtn label="X" onClick={() => close(win.id)} />
+        </div>
       </div>
       <div className="flex-1 overflow-auto" style={{ background: "var(--os-bg-2)" }}>
         <Comp payload={win.payload} />
@@ -134,14 +136,20 @@ export function WindowFrame({ win }: { win: WindowState }) {
   );
 }
 
-function TLight({ color, hover, onClick }: { color: string; hover: string; onClick: () => void }) {
+function SquareBtn({ label, onClick }: { label: string; onClick: () => void }) {
+  const [pressed, setPressed] = useState(false);
   return (
     <button
-      onClick={onClick}
-      className="group w-3 h-3 rounded-full flex items-center justify-center transition"
-      style={{ background: color, boxShadow: `0 0 0 0.5px rgba(0,0,0,0.3) inset` }}
+      onPointerDown={(e) => { e.stopPropagation(); setPressed(true); }}
+      onPointerUp={(e) => { e.stopPropagation(); setPressed(false); onClick(); }}
+      onPointerLeave={() => setPressed(false)}
+      className="w-5 h-5 flex items-center justify-center bg-[#44403C] text-[#E8E6E1] text-[10px] font-bold border border-black"
+      style={{
+        boxShadow: pressed ? "var(--shadow-retro-inset)" : "var(--shadow-retro-outset)",
+        fontFamily: "var(--font-mono)"
+      }}
     >
-      <span className="opacity-0 group-hover:opacity-70 text-[9px] leading-none text-black font-bold">{hover}</span>
+      {label}
     </button>
   );
 }

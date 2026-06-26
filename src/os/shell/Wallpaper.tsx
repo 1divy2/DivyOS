@@ -3,20 +3,16 @@ import { useWallpaper } from "../services/wallpaper";
 import { useSettings } from "../settings";
 
 export function Wallpaper() {
-  const id = useWallpaper((s) => s.wallpaperId);
-  const reduced = useSettings((s) => s.reducedMotion);
-
   return (
-    <div className="absolute inset-0 -z-0 overflow-hidden pointer-events-none" style={{ background: "#0B0D12" }}>
-      {id === "aurora" && <Aurora reduced={reduced} />}
-      {id === "constellation" && <Constellation reduced={reduced} />}
-      {id === "meridian" && <Meridian reduced={reduced} />}
-      {id === "dune" && <Dune reduced={reduced} />}
-      {id === "glass" && <Glass reduced={reduced} />}
-      {id === "paper" && <Paper />}
+    <div className="absolute inset-0 -z-0 overflow-hidden pointer-events-none" style={{ background: "var(--os-bg)" }}>
+      {/* CRT Scanlines */}
+      <div 
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-30"
+        style={{ background: "repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px)" }}
+      />
       {/* subtle global vignette + grain */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(140% 100% at 50% 0%, transparent 40%, rgba(0,0,0,0.45) 100%)" }} />
-      <div className="absolute inset-0 pointer-events-none opacity-[0.025] mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(140% 100% at 50% 0%, transparent 40%, rgba(0,0,0,0.6) 100%)" }} />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }} />
     </div>
   );
 }
