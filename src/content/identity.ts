@@ -7,7 +7,7 @@ export const identity = {
   email: "dadheech120404@gmail.com",
   links: {
     github: "https://github.com/1divy2",
-    linkedin: "https://linkedin.com/in/divydadheech", // Assuming standard format
+    linkedin: "https://www.linkedin.com/in/divy-dadheech-211050290/",
     twitter: "https://twitter.com/1divy2",
     website: "https://github.com/1divy2",
   },

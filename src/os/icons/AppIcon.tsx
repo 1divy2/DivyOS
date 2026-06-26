@@ -224,6 +224,33 @@ const ICONS: Record<string, IconDef> = {
       <line x1={s*0.56} y1={s*0.56} x2={s*0.72} y2={s*0.72} stroke="#0B0D12" strokeWidth={s*0.05} strokeLinecap="round"/>
     </>),
   },
+  pong: {
+    from: "#8EE3B0", to: "#3C9D6A", ink: "#0B0D12",
+    glyph: (s) => (<>
+      <line x1={s*0.3} y1={s*0.3} x2={s*0.3} y2={s*0.7} stroke="#0B0D12" strokeWidth={s*0.08} strokeLinecap="round" />
+      <line x1={s*0.7} y1={s*0.3} x2={s*0.7} y2={s*0.7} stroke="#0B0D12" strokeWidth={s*0.08} strokeLinecap="round" />
+      <circle cx={s/2} cy={s/2} r={s*0.06} fill="#0B0D12"/>
+    </>),
+  },
+  breakout: {
+    from: "#E89BAE", to: "#9C4F66", ink: "#0B0D12",
+    glyph: (s) => (<>
+      {[0,1,2].map(r => [0,1,2,3].map(c => (
+        <rect key={`${r}-${c}`} x={s*0.2 + c*s*0.16} y={s*0.25 + r*s*0.1} width={s*0.14} height={s*0.08} fill="#0B0D12" rx={s*0.02} opacity={1 - r*0.2} />
+      )))}
+      <circle cx={s/2} cy={s*0.65} r={s*0.05} fill="#0B0D12"/>
+      <rect x={s*0.35} y={s*0.75} width={s*0.3} height={s*0.06} fill="#0B0D12" rx={s*0.02} />
+    </>),
+  },
+  asteroids: {
+    from: "#E8B57A", to: "#B07840", ink: "#0B0D12",
+    glyph: (s) => (<>
+      <path d={`M${s/2} ${s*0.3} L${s*0.65} ${s*0.7} L${s/2} ${s*0.6} L${s*0.35} ${s*0.7} z`} fill="#0B0D12" stroke="#0B0D12" strokeWidth={s*0.04} strokeLinejoin="round" />
+      <circle cx={s*0.25} cy={s*0.35} r={s*0.05} fill="#0B0D12" opacity={0.6}/>
+      <circle cx={s*0.75} cy={s*0.45} r={s*0.04} fill="#0B0D12" opacity={0.8}/>
+      <circle cx={s*0.65} cy={s*0.25} r={s*0.03} fill="#0B0D12" opacity={0.5}/>
+    </>),
+  },
 };
 
 const FALLBACK: IconDef = { from: "#3A3D48", to: "#1A1D26", ink: "#E8E6E1", glyph: () => null };
