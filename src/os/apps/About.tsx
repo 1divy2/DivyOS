@@ -5,7 +5,7 @@ export function AboutApp() {
   const open = useOS((s) => s.open);
 
   return (
-    <div className="h-full overflow-auto text-os-ink" style={{ background: "linear-gradient(180deg, var(--os-bg-2) 0%, var(--os-bg) 100%)", fontFamily: "Inter Tight" }}>
+    <div className="h-full overflow-auto text-os-ink" style={{ fontFamily: "Inter Tight" }}>
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header Section */}
         <div className="flex flex-col items-center gap-6 mb-12 text-center">
