@@ -4,6 +4,7 @@ import { useSession } from "../services/session";
 import { useWallpaper, WALLPAPERS, wallpaperLabel } from "../services/wallpaper";
 import * as DM from "@radix-ui/react-dropdown-menu";
 import { byId } from "../registry";
+import { ControlCenter } from "./ControlCenter";
 
 function useClock() {
   const [t, setT] = useState<Date | null>(null);
@@ -93,9 +94,12 @@ export function MenuBar() {
         </DM.Portal>
       </DM.Root>
 
-      <div className="flex items-center gap-2.5 ml-1 pl-3 border-l border-white/10">
-        <span className="text-os-ink-dim hidden md:inline">{date}</span>
-        <span className="tabular-nums font-semibold">{time}</span>
+      <div className="flex items-center gap-2 ml-1 pl-3 border-l border-white/10">
+        <ControlCenter />
+        <div className="flex items-center gap-2.5 px-2">
+          <span className="text-os-ink-dim hidden md:inline">{date}</span>
+          <span className="tabular-nums font-semibold">{time}</span>
+        </div>
       </div>
     </div>
   );

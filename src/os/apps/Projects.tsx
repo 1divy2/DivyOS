@@ -4,22 +4,50 @@ import { AppFrame } from "./AppFrame";
 import { motion, AnimatePresence } from "motion/react";
 
 function ProjectCard({ p, onClick }: { p: Project; onClick: () => void }) {
+  const isLarge = p.bentoSize === "large";
+  const isMedium = p.bentoSize === "medium";
+  
   return (
     <motion.button
       layoutId={`proj-${p.slug}`}
       onClick={onClick}
-      className="text-left bg-os-panel-2 border border-os-hairline rounded-xl p-5 hover:border-os-iris transition-colors group flex flex-col h-[180px]"
+      whileHover={{ y: -4, scale: 0.98 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className={`
+        text-left relative overflow-hidden rounded-2xl border border-white/5 
+        bg-os-panel-2/50 backdrop-blur-md group flex flex-col
+        ${isLarge ? "col-span-2 row-span-2 min-h-[320px]" : isMedium ? "col-span-2 row-span-1 min-h-[150px]" : "col-span-1 row-span-1 min-h-[150px]"}
+      `}
     >
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="text-os-ink font-semibold text-[15px] group-hover:text-os-iris transition-colors truncate pr-2">{p.name}</h3>
-        <span className="shrink-0 text-os-ink-dim text-[11px] font-mono mt-0.5">★ {p.stars}</span>
-      </div>
-      <p className="text-os-ink-dim text-[12px] line-clamp-3 mb-4 flex-1 leading-relaxed">{p.description || "No description."}</p>
-      <div className="flex items-center gap-2 mt-auto overflow-hidden">
-        {p.language && <span className="px-2 py-0.5 rounded bg-white/5 text-os-ink-dim text-[10px] font-mono shrink-0 border border-os-hairline">{p.language}</span>}
-        {p.topics.slice(0, 2).map(t => (
-          <span key={t} className="px-2 py-0.5 rounded bg-os-iris/10 text-os-iris text-[10px] font-mono shrink-0 border border-os-iris/20">{t}</span>
-        ))}
+      <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient || "from-white/5 to-transparent"} opacity-30 group-hover:opacity-60 transition-opacity duration-500`} />
+      
+      <div className="relative z-10 p-5 flex flex-col h-full">
+        <div className="flex items-start justify-between mb-3">
+          <h3 className={`text-os-ink font-semibold group-hover:text-os-iris transition-colors ${isLarge ? "text-2xl" : "text-[15px]"}`}>
+            {p.name}
+          </h3>
+          <span className="shrink-0 text-os-ink-dim text-[11px] font-mono bg-black/20 px-2 py-1 rounded-full backdrop-blur-sm">
+            ★ {p.stars}
+          </span>
+        </div>
+        
+        <p className={`text-os-ink-dim line-clamp-3 mb-4 flex-1 leading-relaxed ${isLarge ? "text-sm max-w-sm mt-2" : "text-[12px]"}`}>
+          {p.description || "No description."}
+        </p>
+        
+        <div className="flex items-center gap-2 mt-auto overflow-hidden flex-wrap">
+          {p.language && (
+            <span className="px-2.5 py-1 rounded-md bg-white/10 text-os-ink text-[10px] font-mono border border-white/10 backdrop-blur-sm">
+              {p.language}
+            </span>
+          )}
+          {p.topics.slice(0, 3).map(t => (
+            <span key={t} className="px-2.5 py-1 rounded-md bg-os-iris/15 text-os-iris text-[10px] font-mono border border-os-iris/20 backdrop-blur-sm">
+              {t}
+            </span>
+          ))}
+        </div>
       </div>
     </motion.button>
   );
@@ -132,7 +160,7 @@ export function ProjectsApp({ payload }: { payload?: any }) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[150px] gap-4"
           >
             {list.map(p => (
               <ProjectCard key={p.slug} p={p} onClick={() => setSel(p.slug)} />

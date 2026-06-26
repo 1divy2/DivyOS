@@ -395,16 +395,30 @@ export function TerminalApp() {
   };
 
   return (
-    <div className="h-full bg-os-bg flex flex-col font-mono text-[13px] leading-relaxed" onClick={() => inputRef.current?.focus()}>
-      <div ref={scrollRef} className="flex-1 overflow-auto px-3 py-2">
+    <div className="h-full bg-os-bg/95 flex flex-col font-mono text-[13px] leading-relaxed backdrop-blur-3xl" onClick={() => inputRef.current?.focus()}>
+      <div ref={scrollRef} className="flex-1 overflow-auto px-4 py-3 pb-8 scrollbar-hide">
         {lines.map((l, i) => (
-          <div key={i} className="whitespace-pre-wrap">
-            {l.prompt && <span className="text-os-signal">{identity.handle}@divyos:~$ </span>}
+          <div key={i} className="whitespace-pre-wrap flex">
+            {l.prompt && (
+              <span className="shrink-0 mr-2">
+                <span className="text-emerald-400">{identity.handle}</span>
+                <span className="text-os-ink-dim">@</span>
+                <span className="text-blue-400">divyos</span>
+                <span className="text-os-ink-dim">:</span>
+                <span className="text-amber-400">~$</span>
+              </span>
+            )}
             <span className={l.prompt ? "text-os-text" : "text-os-text-dim"}>{l.text}</span>
           </div>
         ))}
-        <div className="flex">
-          <span className="text-os-signal shrink-0">{identity.handle}@divyos:{cwd.replace("/home/divy", "~")}$&nbsp;</span>
+        <div className="flex relative">
+          <span className="shrink-0 mr-2">
+            <span className="text-emerald-400">{identity.handle}</span>
+            <span className="text-os-ink-dim">@</span>
+            <span className="text-blue-400">divyos</span>
+            <span className="text-os-ink-dim">:</span>
+            <span className="text-amber-400">{cwd.replace("/home/divy", "~")}$</span>
+          </span>
           <input
             ref={inputRef}
             value={input}
@@ -413,7 +427,7 @@ export function TerminalApp() {
             spellCheck={false}
             autoCapitalize="off"
             autoComplete="off"
-            className="flex-1 bg-transparent outline-none text-os-text caret-os-signal"
+            className="flex-1 bg-transparent outline-none text-os-text caret-os-amber/80 shadow-[0_0_10px_var(--os-amber)] focus:ring-0"
           />
         </div>
       </div>

@@ -14,6 +14,7 @@ import { ShortcutsLayer } from "./Shortcuts";
 import { DesktopContextMenu } from "./DesktopContextMenu";
 import { WindowLayer } from "../Window";
 import { DesktopIcons } from "./DesktopIcons";
+import { WidgetsLayer } from "./WidgetsLayer";
 import { notify } from "../services/notifications";
 
 export function Desktop() {
@@ -52,6 +53,7 @@ export function Desktop() {
       {showDesktop && (
         <DesktopContextMenu>
           <div className="absolute inset-0">
+            <WidgetsLayer />
             <MenuBar />
             <DesktopIcons />
             <WindowLayer />

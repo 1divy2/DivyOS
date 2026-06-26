@@ -1,24 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../services/session";
-import { identity } from "@/content/identity";
 import { playBootSound } from "../services/audio";
-
-const LINES = [
-  "DivyOS bootloader v1.0",
-  "[ok] mounting /content ........................ JSON/MD",
-  "[ok] starting kernel ............................. ready",
-  "[ok] window manager .............................. ready",
-  "[ok] notification service ........................ ready",
-  "[ok] command bus / terminal ...................... ready",
-  "[ok] wallpaper engine ............................ ready",
-  "[ok] search index ................................ 142 items",
-  "[ok] theme: cortex ............................... loaded",
-  "",
-  identity.bootString,
-];
+import { motion } from "motion/react";
 
 export function Boot() {
-  const [shown, setShown] = useState(0);
+  const [progress, setProgress] = useState(0);
   const completeBoot = useSession((s) => s.completeBoot);
 
   useEffect(() => {
@@ -26,10 +12,20 @@ export function Boot() {
   }, []);
 
   useEffect(() => {
-    if (shown >= LINES.length) return;
-    const t = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 120 : 80);
-    return () => clearTimeout(t);
-  }, [shown]);
+    let current = 0;
+    const interval = setInterval(() => {
+      // Simulate non-linear loading
+      current += Math.random() * 15;
+      if (current >= 100) {
+        current = 100;
+        clearInterval(interval);
+        setTimeout(() => completeBoot(), 600);
+      }
+      setProgress(Math.min(current, 100));
+    }, 80);
+
+    return () => clearInterval(interval);
+  }, [completeBoot]);
 
   useEffect(() => {
     const skip = () => completeBoot();
@@ -41,32 +37,31 @@ export function Boot() {
     };
   }, [completeBoot]);
 
-  useEffect(() => {
-    if (shown < LINES.length) return;
-    const t = setTimeout(() => completeBoot(), 1400);
-    return () => clearTimeout(t);
-  }, [shown, completeBoot]);
-
   return (
-    <div
-      className="fixed inset-0 z-[100] bg-os-bg text-os-text font-mono text-[13px] p-6 sm:p-10 scanline"
-      style={{ animation: "os-boot-fade 200ms ease both" }}
-    >
-      <div className="max-w-2xl">
-        {LINES.slice(0, shown).map((l, i) => (
-          <div
-            key={i}
-            className={l.startsWith("[ok]") ? "text-os-text-dim" : l.includes("DivyOS") ? "text-os-signal" : ""}
-          >
-            {l || "\u00A0"}
-          </div>
-        ))}
-        {shown >= LINES.length && (
-          <div className="mt-4 text-os-text-faint">
-            press any key to continue <span className="os-cursor" />
-          </div>
-        )}
-      </div>
+    <div className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center pointer-events-auto">
+      <motion.div 
+        initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col items-center gap-12"
+      >
+        {/* Glowing Logo */}
+        <div className="w-24 h-24 rounded-[32px] bg-gradient-to-br from-white/20 to-white/5 border border-white/10 shadow-[0_0_80px_rgba(255,255,255,0.05)] backdrop-blur-xl flex items-center justify-center">
+          <span className="text-white text-5xl font-semibold tracking-tighter ml-1 font-sans">
+            D
+          </span>
+        </div>
+
+        {/* Minimal Progress Bar */}
+        <div className="w-48 h-[3px] rounded-full bg-white/10 overflow-hidden relative">
+          <motion.div 
+            className="absolute inset-y-0 left-0 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)] rounded-full"
+            initial={{ width: "0%" }}
+            animate={{ width: `${progress}%` }}
+            transition={{ ease: "linear", duration: 0.1 }}
+          />
+        </div>
+      </motion.div>
     </div>
   );
 }
