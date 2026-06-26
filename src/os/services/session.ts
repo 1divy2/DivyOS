@@ -55,7 +55,12 @@ export const useSession = create<SessionState>()(
       logout: () => set({ visitorName: null, phase: "login" }),
 
       lock: () => {
-        if (get().phase === "desktop") set({ phase: "locked" });
+        if (get().phase === "desktop") {
+          if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+          }
+          set({ phase: "locked" });
+        }
       },
       unlock: () => {
         if (get().phase === "locked") set({ phase: "desktop" });
