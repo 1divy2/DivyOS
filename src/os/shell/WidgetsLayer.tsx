@@ -59,7 +59,7 @@ function BatteryWidget() {
     <motion.div 
       drag dragMomentum={false}
       className="absolute pointer-events-auto w-72 p-5 rounded-[24px] text-white shadow-2xl flex items-center justify-between border border-white/10"
-      style={{ top: 220, left: 24, background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
+      style={{ top: 250, left: 24, background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="flex flex-col items-center">
@@ -91,24 +91,23 @@ function DigitalClockWidget() {
   return (
     <motion.div 
       drag dragMomentum={false}
-      className="absolute pointer-events-auto w-[320px] p-6 rounded-[24px] text-white shadow-2xl flex flex-col items-center justify-center border border-white/10"
-      style={{ top: 48, left: "calc(50vw - 160px)", background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
+      className="absolute pointer-events-auto w-[340px] p-6 rounded-[24px] text-white shadow-2xl flex flex-col items-center justify-center border border-white/10"
+      style={{ top: 48, left: "calc(50vw - 170px)", background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       whileHover={{ scale: 1.02 }}
     >
-      <div className="flex gap-2 items-center">
-        <div className="bg-black/30 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
-          <span className="text-6xl font-bold tracking-tight text-white/90">{h}</span>
+      <div className="flex gap-3 items-center">
+        <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 shadow-lg flex flex-col items-center justify-center">
+          <span className="text-5xl font-semibold tracking-tighter text-white drop-shadow-md">{h}</span>
         </div>
-        <div className="text-4xl font-bold opacity-50 pb-2">:</div>
-        <div className="bg-black/30 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
-          <span className="text-6xl font-bold tracking-tight text-white/90">{m}</span>
+        <div className="flex flex-col gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-white/50" />
+          <div className="w-1.5 h-1.5 rounded-full bg-white/50" />
         </div>
-        <div className="text-4xl font-bold opacity-50 pb-2">:</div>
-        <div className="bg-black/30 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
-          <span className="text-6xl font-medium tracking-tight text-white/70">{s}</span>
+        <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 shadow-lg flex flex-col items-center justify-center">
+          <span className="text-5xl font-semibold tracking-tighter text-white drop-shadow-md">{m}</span>
         </div>
       </div>
-      <div className="text-sm font-medium mt-4 text-white/80 tracking-wide uppercase bg-black/20 px-4 py-1 rounded-full border border-white/5">{dateStr}</div>
+      <div className="text-sm font-semibold mt-4 text-white/90 tracking-widest uppercase">{dateStr}</div>
     </motion.div>
   );
 }
