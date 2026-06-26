@@ -129,7 +129,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
           </div>
 
           <div className="flex items-center gap-2 justify-center absolute left-1/2 -translate-x-1/2 pointer-events-none">
-            <AppIcon id={app.id} size={16} />
+            <AppIcon id={app.id} size={16} style={{ width: 16, height: 16 }} />
             <span className="text-[13px] font-medium tracking-wide text-os-ink/90">{app.name}</span>
             {win.title && win.title !== app.name && (
               <span className="text-[13px] text-os-ink-faint truncate">— {win.title}</span>
