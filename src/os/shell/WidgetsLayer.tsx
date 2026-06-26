@@ -140,7 +140,7 @@ function WeatherWidget() {
 }
 
 function BatteryWidget() {
-  const [level, setLevel] = useState(90);
+  const [level, setLevel] = useState<number | null>(null);
   const [charging, setCharging] = useState(false);
 
   useEffect(() => {
@@ -169,6 +169,8 @@ function BatteryWidget() {
     };
   }, []);
 
+  const visualLevel = level !== null ? level : 100;
+
   return (
     <motion.div 
       drag dragMomentum={false}
@@ -181,8 +183,8 @@ function BatteryWidget() {
           <div 
             className="absolute inset-0 rounded-full border-[4px] border-white transition-all duration-1000" 
             style={{ 
-              clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 ${100 - (level * 0.8)}%)`,
-              borderColor: level <= 20 ? '#ef4444' : charging ? '#22c55e' : 'white'
+              clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 ${100 - (visualLevel * 0.8)}%)`,
+              borderColor: level === null ? 'rgba(255,255,255,0.2)' : level <= 20 ? '#ef4444' : charging ? '#22c55e' : 'white'
             }} 
           />
           {charging ? (
@@ -191,7 +193,7 @@ function BatteryWidget() {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
           )}
         </div>
-        <span className="text-xs font-semibold mt-2">{level}%</span>
+        <span className="text-xs font-semibold mt-2">{level !== null ? `${level}%` : '--%'}</span>
       </div>
       
       <div className="flex gap-3">
