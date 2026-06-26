@@ -92,10 +92,10 @@
   --input: oklch(0.30 0.014 250);
   --ring: oklch(0.78 0.13 280);
 
-  /* DivyOS Premium Dark Theme tokens */
-  --os-bg:        #0C0A09; /* pitch black / dark stone */
+  /* Default fallback (cortex) */
+  --os-bg:        #0C0A09;
   --os-bg-2:      #1C1917;
-  --os-panel:     rgba(28, 25, 23, 0.7); /* translucent */
+  --os-panel:     rgba(28, 25, 23, 0.7);
   --os-panel-2:   rgba(68, 64, 60, 0.7);
   --os-glass:     rgba(28, 25, 23, 0.65);
   --os-hairline:  rgba(255, 255, 255, 0.1);
@@ -104,7 +104,7 @@
   --os-ink-dim:   #A8A29E;
   --os-ink-faint: #78716C;
   --os-iris:      #A8B4FF;
-  --os-amber:     #CA8A04; /* gold / CTA */
+  --os-amber:     #CA8A04;
   --os-rose:      #E89BAE;
   --os-mint:      #8EE3B0;
   --os-signal:    #7BE3B0;
@@ -115,6 +115,85 @@
   --shadow-glow-iris: 0 0 60px -10px rgba(168,180,255,0.2);
   --shadow-soft: 0 4px 12px rgba(0,0,0,0.2);
   --shadow-medium: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.theme-cortex {
+  --os-bg:        #0C0A09;
+  --os-bg-2:      #1C1917;
+  --os-panel:     rgba(28, 25, 23, 0.7);
+  --os-panel-2:   rgba(68, 64, 60, 0.7);
+  --os-glass:     rgba(28, 25, 23, 0.65);
+  --os-ink:       #FAFAF9;
+  --os-ink-dim:   #A8A29E;
+  --os-ink-faint: #78716C;
+  --os-iris:      #A8B4FF;
+  --os-amber:     #CA8A04;
+}
+
+.theme-retro {
+  --os-bg:        #2d1b00;
+  --os-bg-2:      #4d3100;
+  --os-panel:     rgba(45, 27, 0, 0.85);
+  --os-panel-2:   rgba(77, 49, 0, 0.85);
+  --os-glass:     rgba(45, 27, 0, 0.8);
+  --os-hairline:  rgba(255, 170, 0, 0.2);
+  --os-stroke:    rgba(255, 170, 0, 0.3);
+  --os-ink:       #ffaa00;
+  --os-ink-dim:   #cc8800;
+  --os-ink-faint: #996600;
+  --os-iris:      #ffaa00;
+  --os-amber:     #ffcc00;
+  --os-rose:      #ff5500;
+  --os-mint:      #00ffaa;
+  --os-signal:    #ffaa00;
+  --os-warn:      #ffaa00;
+  --os-error:     #ff0000;
+  --shadow-window: 0 20px 40px rgba(255,170,0,0.1), inset 0 1px 0 rgba(255,170,0,0.2);
+  --shadow-glow-iris: 0 0 60px -10px rgba(255,170,0,0.3);
+}
+
+.theme-minimal {
+  --os-bg:        #ffffff;
+  --os-bg-2:      #f4f4f5;
+  --os-panel:     rgba(255, 255, 255, 0.9);
+  --os-panel-2:   rgba(244, 244, 245, 0.9);
+  --os-glass:     rgba(255, 255, 255, 0.85);
+  --os-hairline:  rgba(0, 0, 0, 0.1);
+  --os-stroke:    rgba(0, 0, 0, 0.15);
+  --os-ink:       #09090b;
+  --os-ink-dim:   #71717a;
+  --os-ink-faint: #a1a1aa;
+  --os-iris:      #09090b;
+  --os-amber:     #d97706;
+  --os-rose:      #e11d48;
+  --os-mint:      #059669;
+  --os-signal:    #09090b;
+  --os-warn:      #d97706;
+  --os-error:     #dc2626;
+  --shadow-window: 0 20px 40px rgba(0,0,0,0.1), inset 0 1px 0 rgba(0,0,0,0.05);
+  --shadow-glow-iris: 0 0 60px -10px rgba(0,0,0,0.1);
+}
+
+.theme-blueprint {
+  --os-bg:        #003366;
+  --os-bg-2:      #004080;
+  --os-panel:     rgba(0, 51, 102, 0.85);
+  --os-panel-2:   rgba(0, 64, 128, 0.85);
+  --os-glass:     rgba(0, 51, 102, 0.8);
+  --os-hairline:  rgba(255, 255, 255, 0.2);
+  --os-stroke:    rgba(255, 255, 255, 0.3);
+  --os-ink:       #ffffff;
+  --os-ink-dim:   rgba(255, 255, 255, 0.7);
+  --os-ink-faint: rgba(255, 255, 255, 0.5);
+  --os-iris:      #66b3ff;
+  --os-amber:     #ffcc00;
+  --os-rose:      #ff9999;
+  --os-mint:      #99ffcc;
+  --os-signal:    #66b3ff;
+  --os-warn:      #ffcc00;
+  --os-error:     #ff6666;
+  --shadow-window: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+  --shadow-glow-iris: 0 0 60px -10px rgba(102,179,255,0.3);
 }
 
 @layer base {

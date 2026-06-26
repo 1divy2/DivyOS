@@ -5,21 +5,21 @@ export function AboutApp() {
   const open = useOS((s) => s.open);
 
   return (
-    <div className="h-full overflow-auto text-os-ink" style={{ background: "linear-gradient(180deg, #11141B 0%, #0B0D12 100%)", fontFamily: "Inter Tight" }}>
+    <div className="h-full overflow-auto text-os-ink" style={{ background: "linear-gradient(180deg, var(--os-bg-2) 0%, var(--os-bg) 100%)", fontFamily: "Inter Tight" }}>
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12 text-center md:text-left">
+        <div className="flex flex-col items-center gap-6 mb-12 text-center">
           <div className="w-32 h-32 rounded-3xl overflow-hidden flex-shrink-0 relative shadow-[0_20px_50px_-12px_rgba(168,180,255,0.4)] transition-transform hover:scale-105 duration-500" style={{ background: "linear-gradient(135deg,#A8B4FF,#5A6AE0)" }}>
             <div className="absolute inset-0 flex items-center justify-center text-white/95" style={{ fontFamily: "Fraunces, serif", fontSize: 64, fontWeight: 600 }}>D</div>
           </div>
-          <div className="pt-2 flex-1">
+          <div className="pt-2 flex flex-col items-center">
             <div className="text-os-iris text-[13px] uppercase tracking-[0.2em] font-semibold mb-2">Personal Operating System</div>
             <h1 style={{ fontFamily: "Fraunces, serif", fontWeight: 500, fontSize: 52, lineHeight: 1.05, letterSpacing: "-0.02em" }} className="mb-2">
               {identity.name}
             </h1>
             <div className="text-os-ink-dim text-[18px]">{identity.role}</div>
             
-            <div className="flex flex-wrap gap-3 mt-6 justify-center md:justify-start">
+            <div className="flex flex-wrap gap-3 mt-6 justify-center">
               <SocialLink href={identity.links.github} icon="GitHub" />
               <SocialLink href={identity.links.linkedin} icon="LinkedIn" />
               <SocialLink href={identity.links.twitter} icon="Twitter" />

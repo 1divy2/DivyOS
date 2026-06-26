@@ -14,7 +14,7 @@ export function ResumeApp() {
   );
 
   return (
-    <AppFrame header={header} className="bg-black/95">
+    <AppFrame header={header} className="bg-os-bg/95">
       <div className="h-full overflow-auto p-6 md:p-12 relative" style={{ fontFamily: "Inter Tight" }}>
         
         {/* Ambient background glows */}
@@ -24,13 +24,13 @@ export function ResumeApp() {
         <div className="max-w-4xl mx-auto space-y-12 relative z-10 pb-20">
           
           {/* Header */}
-          <div className="text-center md:text-left border-b border-white/10 pb-8">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight" style={{ fontFamily: "Fraunces, serif" }}>Divy Dadheech</h1>
+          <div className="text-center md:text-left border-b border-os-hairline pb-8">
+            <h1 className="text-4xl md:text-6xl font-bold text-os-ink mb-4 tracking-tight" style={{ fontFamily: "Fraunces, serif" }}>Divy Dadheech</h1>
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-os-ink-dim text-sm font-mono uppercase tracking-widest">
               <span>Udaipur, Rajasthan, India</span>
-              <span className="hidden md:inline text-white/20">|</span>
+              <span className="hidden md:inline text-os-stroke">|</span>
               <a href="mailto:dadheech120404@gmail.com" className="hover:text-os-iris transition">dadheech120404@gmail.com</a>
-              <span className="hidden md:inline text-white/20">|</span>
+              <span className="hidden md:inline text-os-stroke">|</span>
               <span>+91 8824799783</span>
             </div>
           </div>
@@ -69,7 +69,7 @@ export function ResumeApp() {
               {/* Experience / Activities */}
               <section>
                 <SectionHeader title="Activities" icon="⚡" />
-                <div className="mt-6 glass-strong rounded-2xl p-6 border border-white/5 shadow-xl hover:border-white/10 transition-colors">
+                <div className="mt-6 glass-strong rounded-2xl p-6 border border-os-hairline shadow-xl hover:border-os-stroke transition-colors">
                   <ul className="space-y-3 text-os-ink/80 text-[15px] leading-relaxed">
                     <li className="flex gap-3"><span className="text-os-iris">▹</span> Developed multiple academic and personal software projects using Java, Python, and Machine Learning.</li>
                     <li className="flex gap-3"><span className="text-os-iris">▹</span> Actively use GitHub for version control and project collaboration.</li>
@@ -84,20 +84,20 @@ export function ResumeApp() {
               <section>
                 <SectionHeader title="Education" icon="🎓" />
                 <div className="space-y-4 mt-6">
-                  <div className="glass-strong rounded-2xl p-5 border border-white/5 relative overflow-hidden group">
+                  <div className="glass-strong rounded-2xl p-5 border border-os-hairline relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-os-amber/10 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 transition duration-700" />
                     <div className="text-[10px] text-os-amber uppercase tracking-widest font-mono mb-1">Aug 2022 – Jul 2026</div>
-                    <div className="font-semibold text-white text-lg">VIT-AP University</div>
+                    <div className="font-semibold text-os-ink text-lg">VIT-AP University</div>
                     <div className="text-sm text-os-ink-dim mt-1">B.Tech in Computer Science Engineering</div>
-                    <div className="mt-3 inline-block px-3 py-1 rounded bg-black/40 text-os-amber text-xs font-mono font-medium border border-os-amber/20">CGPA: 8.28</div>
+                    <div className="mt-3 inline-block px-3 py-1 rounded bg-os-bg-2 text-os-amber text-xs font-mono font-medium border border-os-amber/20">CGPA: 8.28</div>
                   </div>
 
-                  <div className="glass-strong rounded-2xl p-5 border border-white/5 relative overflow-hidden group">
+                  <div className="glass-strong rounded-2xl p-5 border border-os-hairline relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-os-iris/10 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 transition duration-700" />
                     <div className="text-[10px] text-os-iris uppercase tracking-widest font-mono mb-1">May 2019 – May 2021</div>
-                    <div className="font-semibold text-white text-lg">MDS Public School</div>
+                    <div className="font-semibold text-os-ink text-lg">MDS Public School</div>
                     <div className="text-sm text-os-ink-dim mt-1">Higher Secondary (Science)</div>
-                    <div className="mt-3 inline-block px-3 py-1 rounded bg-black/40 text-os-iris text-xs font-mono font-medium border border-os-iris/20">Aggregate: 92.8%</div>
+                    <div className="mt-3 inline-block px-3 py-1 rounded bg-os-bg-2 text-os-iris text-xs font-mono font-medium border border-os-iris/20">Aggregate: 92.8%</div>
                   </div>
                 </div>
               </section>
@@ -117,13 +117,13 @@ export function ResumeApp() {
               <section>
                 <SectionHeader title="Certifications" icon="🏆" />
                 <div className="mt-6 flex flex-col gap-3">
-                  <div className="glass-strong px-4 py-3 rounded-xl border border-white/5 flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
-                    <span className="text-sm font-medium text-white/90">MongoDB DBA Certified</span>
+                  <div className="glass-strong px-4 py-3 rounded-xl border border-os-hairline flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-os-mint shadow-[0_0_10px_var(--os-mint)]" />
+                    <span className="text-sm font-medium text-os-ink/90">MongoDB DBA Certified</span>
                   </div>
-                  <div className="glass-strong px-4 py-3 rounded-xl border border-white/5 flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
-                    <span className="text-sm font-medium text-white/90">Oracle Gen AI Certified</span>
+                  <div className="glass-strong px-4 py-3 rounded-xl border border-os-hairline flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-os-error shadow-[0_0_10px_var(--os-error)]" />
+                    <span className="text-sm font-medium text-os-ink/90">Oracle Gen AI Certified</span>
                   </div>
                 </div>
               </section>
@@ -137,8 +137,8 @@ export function ResumeApp() {
 
 function SectionHeader({ title, icon }: { title: string, icon: string }) {
   return (
-    <h2 className="text-xl font-bold text-white flex items-center gap-3 tracking-tight">
-      <span className="p-2 rounded-lg bg-white/5 border border-white/10 text-lg shadow-lg">{icon}</span>
+    <h2 className="text-xl font-bold text-os-ink flex items-center gap-3 tracking-tight">
+      <span className="p-2 rounded-lg bg-os-bg-2 border border-os-hairline text-lg shadow-lg">{icon}</span>
       {title}
     </h2>
   );
@@ -146,13 +146,13 @@ function SectionHeader({ title, icon }: { title: string, icon: string }) {
 
 function ProjectCard({ title, tech, points, link }: { title: string, tech: string[], points: string[], link: string }) {
   return (
-    <div className="glass-strong rounded-3xl p-6 md:p-8 border border-white/5 hover:border-os-iris/30 transition-colors duration-500 shadow-2xl relative overflow-hidden group">
+    <div className="glass-strong rounded-3xl p-6 md:p-8 border border-os-hairline hover:border-os-iris/30 transition-colors duration-500 shadow-2xl relative overflow-hidden group">
       <div className="absolute top-0 right-0 w-64 h-64 bg-os-iris/5 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
       <div className="relative z-10">
-        <h3 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: "Fraunces, serif" }}>{title}</h3>
+        <h3 className="text-2xl font-bold text-os-ink mb-4" style={{ fontFamily: "Fraunces, serif" }}>{title}</h3>
         <div className="flex flex-wrap gap-2 mb-6">
           {tech.map((t) => (
-            <span key={t} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-mono text-os-ink-dim uppercase tracking-wider">{t}</span>
+            <span key={t} className="px-2.5 py-1 rounded-md bg-os-bg-2 border border-os-hairline text-[11px] font-mono text-os-ink-dim uppercase tracking-wider">{t}</span>
           ))}
         </div>
         <ul className="space-y-2 mb-6">
@@ -162,7 +162,7 @@ function ProjectCard({ title, tech, points, link }: { title: string, tech: strin
             </li>
           ))}
         </ul>
-        <a href={`https://${link}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-os-iris hover:text-white transition-colors">
+        <a href={`https://${link}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-os-iris hover:text-os-ink transition-colors">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
           {link}
         </a>

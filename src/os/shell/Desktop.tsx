@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useOS } from "../store";
 import { useSession } from "../services/session";
+import { useSettings } from "../settings";
 import { MenuBar } from "./MenuBar";
 import { Dock } from "./Dock";
 import { Boot } from "./Boot";
@@ -22,6 +23,7 @@ export function Desktop() {
   const windows = useOS((s) => s.windows);
   const open = useOS((s) => s.open);
   const visitor = useSession((s) => s.visitorName);
+  const theme = useSettings((s) => s.theme);
 
   useEffect(() => {
     if (phase !== "desktop") return;
@@ -48,7 +50,7 @@ export function Desktop() {
   const showDesktop = phase === "desktop" || phase === "locked";
 
   return (
-    <div className="fixed inset-0 overflow-hidden" style={{ background: "#0B0D12", color: "var(--os-ink)" }}>
+    <div className={`fixed inset-0 overflow-hidden theme-${theme}`} style={{ background: "var(--os-bg)", color: "var(--os-ink)" }}>
       <Wallpaper />
       {showDesktop && (
         <DesktopContextMenu>
