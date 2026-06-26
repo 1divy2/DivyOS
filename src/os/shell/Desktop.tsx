@@ -15,7 +15,6 @@ import { NotificationToasts, NotificationCenter } from "./Notifications";
 import { ShortcutsLayer } from "./Shortcuts";
 import { DesktopContextMenu } from "./DesktopContextMenu";
 import { WindowLayer } from "../Window";
-import { DesktopIcons } from "./DesktopIcons";
 import { WidgetsLayer } from "./WidgetsLayer";
 import { notify } from "../services/notifications";
 
@@ -73,7 +72,6 @@ export function Desktop() {
               <>
                 <WidgetsLayer />
                 <MenuBar />
-                <DesktopIcons />
                 <WindowLayer />
                 <Dock />
                 <Launcher />

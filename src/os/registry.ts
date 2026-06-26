@@ -44,14 +44,14 @@ export const apps: AppDef[] = [
   { id: "resume", name: "Resume", glyph: "≡", component: ResumeApp, defaultSize: { w: 680, h: 600 }, description: "CV — view / print / download", inDock: true, category: "personal" },
   { id: "skills", name: "Skills", glyph: "◇", component: SkillsApp, defaultSize: { w: 640, h: 480 }, description: "Stack & tooling", category: "personal" },
   { id: "experience", name: "Experience", glyph: "│", component: ExperienceApp, defaultSize: { w: 640, h: 520 }, description: "Timeline of roles", category: "personal" },
-  { id: "gallery", name: "Gallery", glyph: "▣", component: GalleryApp, defaultSize: { w: 720, h: 520 }, description: "Visual work", category: "personal" },
+  { id: "gallery", name: "Gallery", glyph: "▣", component: GalleryApp, defaultSize: { w: 720, h: 520 }, description: "Visual work", inDock: true, category: "personal" },
   { id: "contact", name: "Contact", glyph: "@", component: ContactApp, defaultSize: { w: 520, h: 420 }, description: "Reach out", category: "personal" },
-  { id: "github", name: "GitHub", glyph: "⌥", component: GitHubApp, defaultSize: { w: 760, h: 520 }, description: "Live repos", category: "personal" },
+  { id: "github", name: "GitHub", glyph: "⌥", component: GitHubApp, defaultSize: { w: 760, h: 520 }, description: "Live repos", inDock: true, category: "personal" },
 
   // Tools
   { id: "terminal", name: "Terminal", glyph: "▮", component: TerminalApp, defaultSize: { w: 760, h: 480 }, description: "divysh — control surface", inDock: true, category: "tools" },
   { id: "files", name: "Files", glyph: "📁", component: FilesApp, defaultSize: { w: 720, h: 480 }, description: "Browse the virtual FS", inDock: true, category: "tools" },
-  { id: "notes", name: "Notes", glyph: "✎", component: NotesApp, defaultSize: { w: 640, h: 480 }, description: "Markdown scratchpad", category: "tools" },
+  { id: "notes", name: "Notes", glyph: "✎", component: NotesApp, defaultSize: { w: 640, h: 480 }, description: "Markdown scratchpad", inDock: true, category: "tools" },
   { id: "calculator", name: "Calculator", glyph: "÷", component: CalculatorApp, defaultSize: { w: 320, h: 460 }, description: "Quick math", category: "tools" },
   { id: "calendar", name: "Calendar", glyph: "▦", component: CalendarApp, defaultSize: { w: 480, h: 480 }, description: "Month view", category: "tools" },
   { id: "music", name: "Music", glyph: "♪", component: MusicApp, defaultSize: { w: 380, h: 580 }, description: "Background playlist", category: "tools" },
@@ -60,7 +60,7 @@ export const apps: AppDef[] = [
   // System
   { id: "settings", name: "Settings", glyph: "⚙", component: SettingsApp, defaultSize: { w: 720, h: 540 }, description: "Wallpaper · theme · session", inDock: true, category: "system" },
   { id: "monitor", name: "System Monitor", glyph: "⌖", component: SystemMonitorApp, defaultSize: { w: 520, h: 560 }, description: "Real browser metrics", category: "system" },
-  { id: "trash", name: "Trash", glyph: "∅", component: TrashApp, defaultSize: { w: 480, h: 360 }, description: "Deleted items", category: "system" },
+  { id: "trash", name: "Trash", glyph: "∅", component: TrashApp, defaultSize: { w: 480, h: 360 }, description: "Deleted items", inDock: true, category: "system" },
 
   // Games
   { id: "snake", name: "Snake", glyph: "◉", component: SnakeApp, defaultSize: { w: 440, h: 520 }, description: "Classic snake", category: "games" },
@@ -68,9 +68,9 @@ export const apps: AppDef[] = [
   { id: "t2048", name: "2048", glyph: "2⁴", component: Game2048App, defaultSize: { w: 360, h: 460 }, description: "Slide & merge", category: "games" },
   { id: "minesweeper", name: "Minesweeper", glyph: "⚑", component: MinesweeperApp, defaultSize: { w: 360, h: 440 }, description: "Sweep the field", category: "games" },
   { id: "flappy", name: "Flappy", glyph: "𓅪", component: FlappyApp, defaultSize: { w: 380, h: 540 }, description: "Tap to fly", category: "games" },
-  { id: "pong", name: "Pong", glyph: "◫", component: PongApp, defaultSize: { w: 680, h: 560 }, description: "Classic table tennis", category: "games" },
-  { id: "breakout", name: "Breakout", glyph: "▤", component: BreakoutApp, defaultSize: { w: 680, h: 560 }, description: "Brick breaker", category: "games" },
-  { id: "asteroids", name: "Asteroids", glyph: "△", component: AsteroidsApp, defaultSize: { w: 680, h: 560 }, description: "Space survival", category: "games" },
+  { id: "pong", name: "Pong", glyph: "◫", component: PongApp, defaultSize: { w: 680, h: 560 }, description: "Classic table tennis", inDock: true, category: "games" },
+  { id: "breakout", name: "Breakout", glyph: "▤", component: BreakoutApp, defaultSize: { w: 680, h: 560 }, description: "Brick breaker", inDock: true, category: "games" },
+  { id: "asteroids", name: "Asteroids", glyph: "△", component: AsteroidsApp, defaultSize: { w: 680, h: 560 }, description: "Space survival", inDock: true, category: "games" },
 ];
 
 export const byId = (id: string) => apps.find((a) => a.id === id);
