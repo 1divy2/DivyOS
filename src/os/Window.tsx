@@ -19,16 +19,18 @@ export function WindowFrame({ win }: { win: WindowState }) {
   const vp = useViewport();
   const drag = useRef<{ ox: number; oy: number; x: number; y: number } | null>(null);
   const resz = useRef<{ ow: number; oh: number; x: number; y: number } | null>(null);
+  const [localPos, setLocalPos] = useState<{ x: number; y: number } | null>(null);
+  const [localSize, setLocalSize] = useState<{ w: number; h: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [snapPreview, setSnapPreview] = useState<"l" | "r" | "f" | null>(null);
   const app = byId(win.appId);
   const isMobile = vp.w < 640;
 
-  const x = isMobile ? 0 : win.x;
-  const y = isMobile ? LAYOUT.TOP_BAR : win.y;
-  const w = isMobile ? vp.w : win.w;
-  const h = isMobile ? vp.h - LAYOUT.TOP_BAR - LAYOUT.DOCK : win.h;
+  const x = isMobile ? 0 : localPos ? localPos.x : win.x;
+  const y = isMobile ? 0 : localPos ? localPos.y : win.y;
+  const w = isMobile ? vp.w : localSize ? localSize.w : win.w;
+  const h = isMobile ? vp.h : localSize ? localSize.h : win.h;
 
   if (!app || win.minimized) return null;
   const Comp = app.component;
@@ -44,7 +46,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
     if (!drag.current) return;
     const nx = Math.max(0, Math.min(vp.w - 80, drag.current.x + (e.clientX - drag.current.ox)));
     const ny = Math.max(LAYOUT.TOP_BAR, Math.min(vp.h - 40, drag.current.y + (e.clientY - drag.current.oy)));
-    move(win.id, nx, ny);
+    setLocalPos({ x: nx, y: ny });
     
     if (e.clientX <= 12) setSnapPreview("l");
     else if (e.clientX >= vp.w - 12) setSnapPreview("r");
@@ -53,6 +55,10 @@ export function WindowFrame({ win }: { win: WindowState }) {
   };
   const onDragEnd = (e: RPE<HTMLDivElement>) => {
     if (!drag.current) return;
+    const finalPos = localPos || { x: win.x, y: win.y };
+    setLocalPos(null);
+    move(win.id, finalPos.x, finalPos.y);
+
     if (e.clientX <= 12) snap(win.id, "l", vp);
     else if (e.clientX >= vp.w - 12) snap(win.id, "r", vp);
     else if (e.clientY <= LAYOUT.TOP_BAR + 12) snap(win.id, "f", vp);
@@ -72,9 +78,13 @@ export function WindowFrame({ win }: { win: WindowState }) {
     if (!resz.current) return;
     const nw = Math.max(320, resz.current.ow + (e.clientX - resz.current.x));
     const nh = Math.max(220, resz.current.oh + (e.clientY - resz.current.y));
-    resize(win.id, nw, nh);
+    setLocalSize({ w: nw, h: nh });
   };
   const onResizeEnd = () => { 
+    if (resz.current && localSize) {
+      resize(win.id, localSize.w, localSize.h);
+    }
+    setLocalSize(null);
     resz.current = null; 
     setIsResizing(false);
   };
@@ -98,30 +108,47 @@ export function WindowFrame({ win }: { win: WindowState }) {
       }}
       onPointerDown={() => focus(win.id)}
     >
-      <div
-        className="h-10 px-3 flex items-center select-none border-b border-white/5 relative"
-        onPointerDown={onDragStart}
-        onPointerMove={onDragMove}
-        onPointerUp={onDragEnd}
-        onDoubleClick={() => toggleMax(win.id, vp)}
-        style={{ cursor: isMobile || win.maximized ? "default" : "grab" }}
-      >
-        <div className="flex items-center gap-2">
-          <AppIcon id={app.id} size={16} />
-          <span className="text-[13px] font-medium tracking-wide">{app.name}</span>
-          {win.title && win.title !== app.name && (
-            <span className="text-[13px] text-os-ink-faint truncate">— {win.title}</span>
-          )}
+      {isMobile ? (
+        <div className="h-14 px-4 flex items-center select-none border-b border-white/5 bg-os-panel-2 sticky top-0 z-10">
+          <button 
+            onClick={() => close(win.id)}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 active:scale-95 transition-all outline-none"
+          >
+            <span className="text-xl">←</span>
+          </button>
+          <div className="flex flex-col ml-4">
+            <span className="text-[14px] font-medium tracking-wide">{app.name}</span>
+            {win.title && win.title !== app.name && (
+              <span className="text-[11px] text-os-ink-faint truncate">{win.title}</span>
+            )}
+          </div>
         </div>
-        <span className="flex-1" />
-        
-        {/* elegant circular buttons */}
-        <div className="flex items-center gap-2">
-          <WindowBtn type="minimize" onClick={() => minimize(win.id)} />
-          <WindowBtn type="maximize" onClick={() => toggleMax(win.id, vp)} />
-          <WindowBtn type="close" onClick={() => close(win.id)} />
+      ) : (
+        <div
+          className="h-10 px-3 flex items-center select-none border-b border-white/5 relative shrink-0"
+          onPointerDown={onDragStart}
+          onPointerMove={onDragMove}
+          onPointerUp={onDragEnd}
+          onDoubleClick={() => toggleMax(win.id, vp)}
+          style={{ cursor: win.maximized ? "default" : "grab" }}
+        >
+          <div className="flex items-center gap-2">
+            <AppIcon id={app.id} size={16} />
+            <span className="text-[13px] font-medium tracking-wide">{app.name}</span>
+            {win.title && win.title !== app.name && (
+              <span className="text-[13px] text-os-ink-faint truncate">— {win.title}</span>
+            )}
+          </div>
+          <span className="flex-1" />
+          
+          {/* elegant circular buttons */}
+          <div className="flex items-center gap-2">
+            <WindowBtn type="minimize" onClick={() => minimize(win.id)} />
+            <WindowBtn type="maximize" onClick={() => toggleMax(win.id, vp)} />
+            <WindowBtn type="close" onClick={() => close(win.id)} />
+          </div>
         </div>
-      </div>
+      )}
       <div className="flex-1 overflow-auto bg-black/20">
         <Comp payload={win.payload} />
       </div>

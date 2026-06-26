@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useOS } from "../store";
 import { useSession } from "../services/session";
 import { useSettings } from "../settings";
 import { MenuBar } from "./MenuBar";
 import { Dock } from "./Dock";
+import { MobileShell } from "./MobileShell";
 import { Boot } from "./Boot";
 import { Launcher } from "./Launcher";
 import { Login } from "./Login";
@@ -48,6 +49,14 @@ export function Desktop() {
   }, [phase]);
 
   const showDesktop = phase === "desktop" || phase === "locked";
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <div className={`fixed inset-0 overflow-hidden theme-${theme}`} style={{ background: "var(--os-bg)", color: "var(--os-ink)" }}>
@@ -55,12 +64,21 @@ export function Desktop() {
       {showDesktop && (
         <DesktopContextMenu>
           <div className="absolute inset-0" inert={phase === "locked" ? "" : undefined}>
-            <WidgetsLayer />
-            <MenuBar />
-            <DesktopIcons />
-            <WindowLayer />
-            <Dock />
-            <Launcher />
+            {isMobile ? (
+              <>
+                <MobileShell />
+                <WindowLayer />
+              </>
+            ) : (
+              <>
+                <WidgetsLayer />
+                <MenuBar />
+                <DesktopIcons />
+                <WindowLayer />
+                <Dock />
+                <Launcher />
+              </>
+            )}
             <NotificationToasts />
             <NotificationCenter />
             <ShortcutsLayer />
