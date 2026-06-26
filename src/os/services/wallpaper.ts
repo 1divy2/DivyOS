@@ -2,12 +2,12 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type WallpaperId =
-  | "teal"
-  | "crimson"
-  | "obsidian"
-  | "matrix"
-  | "amber"
-  | "navy";
+  | "aurora"
+  | "glass"
+  | "constellation"
+  | "meridian"
+  | "dune"
+  | "paper";
 
 export type Wallpaper = {
   id: WallpaperId;
@@ -17,12 +17,12 @@ export type Wallpaper = {
 };
 
 export const WALLPAPERS: Wallpaper[] = [
-  { id: "teal",     name: "Deep Teal",     description: "Classic retro desktop",   palette: ["#004b4b", "#004b4b", "#004b4b"] },
-  { id: "crimson",  name: "Crimson",       description: "Dark red operation",      palette: ["#4b0000", "#4b0000", "#4b0000"] },
-  { id: "obsidian", name: "Obsidian",      description: "Pitch black terminal",    palette: ["#0a0a0a", "#0a0a0a", "#0a0a0a"] },
-  { id: "matrix",   name: "Matrix",        description: "Hacker green grid",       palette: ["#001a00", "#001a00", "#001a00"] },
-  { id: "amber",    name: "Amber",         description: "Vintage phosphor glow",   palette: ["#2b1a00", "#2b1a00", "#2b1a00"] },
-  { id: "navy",     name: "Midnight",      description: "Deep blue sea",           palette: ["#001133", "#001133", "#001133"] },
+  { id: "aurora",        name: "Aurora",        description: "Fluid neon lights",       palette: ["#0B0D14", "#2E2A3F", "#A8B4FF"] },
+  { id: "glass",         name: "Liquid Glass",  description: "Frosted ambient spheres", palette: ["#0B0D14", "#1E293B", "#14B8A6"] },
+  { id: "constellation", name: "Deep Space",    description: "Starfield and comets",    palette: ["#06080F", "#0E1228", "#E8E6E1"] },
+  { id: "meridian",      name: "Meridian",      description: "Synthetic sunset",        palette: ["#1A1726", "#0E1118", "#E8B57A"] },
+  { id: "dune",          name: "Dune",          description: "Martian desert",          palette: ["#5A2C1F", "#1A0A06", "#C45A3F"] },
+  { id: "paper",         name: "Paper",         description: "Textured parchment",      palette: ["#F2EFE8", "#E5DFD2", "#D6CFC0"] },
 ];
 
 type WallpaperState = {
@@ -33,12 +33,12 @@ type WallpaperState = {
 export const useWallpaper = create<WallpaperState>()(
   persist(
     (set) => ({
-      wallpaperId: "teal",
+      wallpaperId: "glass",
       setWallpaper: (wallpaperId) => set({ wallpaperId }),
     }),
     {
-      name: "divyos:wallpaper:v3",
-      migrate: () => ({ wallpaperId: "teal" as WallpaperId, setWallpaper: () => {} }),
+      name: "divyos:wallpaper:v4",
+      migrate: () => ({ wallpaperId: "glass" as WallpaperId, setWallpaper: () => {} }),
     },
   ),
 );
