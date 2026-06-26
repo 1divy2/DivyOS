@@ -1,43 +1,96 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
-const TRACKS = [
-  { title: "Long Drive", artist: "DivyOS · ambient", duration: "3:42" },
-  { title: "Late Reply", artist: "DivyOS · lofi",    duration: "4:11" },
-  { title: "Greenroom",  artist: "DivyOS · jazz",    duration: "5:08" },
+const STATIONS = [
+  { title: "Lofi Hip Hop Radio", artist: "Lofi Girl", url: "https://play.streamafrica.net/lofiradio" },
+  { title: "Chillhop Radio", artist: "Chillhop Music", url: "https://studio18.radiolize.com/radio/8220/radio.mp3" },
+  { title: "Ambient Background", artist: "Deep Focus", url: "https://n0a.radiojar.com/0tqw4z013m0uv" },
 ];
 
 export function MusicApp() {
   const [i, setI] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const t = TRACKS[i];
+  const [volume, setVolume] = useState(0.5);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  const station = STATIONS[i];
+
+  useEffect(() => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio(station.url);
+      audioRef.current.volume = volume;
+    } else {
+      audioRef.current.src = station.url;
+    }
+    
+    if (playing) {
+      audioRef.current.play().catch(() => setPlaying(false));
+    }
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, [i]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      if (playing) audioRef.current.play().catch(() => setPlaying(false));
+      else audioRef.current.pause();
+    }
+  }, [playing]);
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
+  }, [volume]);
+
   return (
     <div className="h-full flex flex-col" style={{ background: "linear-gradient(180deg,#1A1226 0%,#0B0D12 100%)" }}>
-      <div className="flex-1 flex flex-col items-center justify-center p-6 gap-6">
-        <div className="w-48 h-48 rounded-2xl shadow-[0_20px_60px_-12px_rgba(232,155,174,0.4)] overflow-hidden relative" style={{ background: "linear-gradient(135deg, #E89BAE 0%, #A8B4FF 100%)" }}>
-          <div className="absolute inset-0 flex items-center justify-center text-white/90" style={{ fontFamily: "Fraunces, serif", fontSize: 56 }}>♪</div>
+      <div className="flex-1 flex flex-col items-center justify-center p-6 gap-6 relative overflow-hidden">
+        {/* Background ambient glow */}
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-os-iris/20 rounded-full blur-[80px] transition-opacity duration-1000 ${playing ? 'opacity-100' : 'opacity-0'}`} />
+        
+        <div className={`w-48 h-48 rounded-full shadow-[0_20px_60px_-12px_rgba(232,155,174,0.4)] overflow-hidden relative flex items-center justify-center border-4 border-black/50 transition-transform duration-1000 ${playing ? '[animation:spin_10s_linear_infinite]' : ''}`} style={{ background: "linear-gradient(135deg, #E89BAE 0%, #A8B4FF 100%)" }}>
+           <div className="w-12 h-12 bg-black/80 rounded-full absolute" />
+           <div className="w-3 h-3 bg-os-iris/50 rounded-full absolute" />
+           <div className="absolute inset-0 flex items-center justify-center text-white/40 mix-blend-overlay" style={{ fontFamily: "Fraunces, serif", fontSize: 120 }}>♪</div>
         </div>
-        <div className="text-center">
-          <div className="text-os-ink text-[20px] font-medium" style={{ fontFamily: "Inter Tight" }}>{t.title}</div>
-          <div className="text-os-ink-dim text-[13px] mt-0.5">{t.artist}</div>
+        <div className="text-center z-10">
+          <div className="text-os-ink text-[20px] font-medium tracking-tight">{station.title}</div>
+          <div className="text-os-ink-dim text-[13px] mt-1">{station.artist}</div>
         </div>
-        <div className="w-full max-w-xs">
-          <div className="h-1 rounded-full bg-white/10 overflow-hidden">
-            <div className="h-full bg-os-ink/70" style={{ width: playing ? "38%" : "0%", transition: "width 30s linear" }} />
+        
+        <div className="w-full max-w-xs z-10">
+          <div className="text-[11px] text-os-ink-faint mb-2 text-center uppercase tracking-widest">{playing ? "LIVE BROADCAST" : "PAUSED"}</div>
+          <div className="h-1.5 rounded-full bg-white/10 overflow-hidden relative">
+            <div className={`absolute inset-y-0 left-0 bg-os-iris rounded-full transition-all duration-1000 w-full ${playing ? 'opacity-100 animate-[pulse_2s_ease-in-out_infinite]' : 'opacity-30'}`} />
           </div>
-          <div className="flex justify-between text-[11px] text-os-ink-faint mt-1 tabular-nums"><span>0:00</span><span>{t.duration}</span></div>
         </div>
-        <div className="flex items-center gap-6 text-os-ink">
-          <button onClick={() => setI((i - 1 + TRACKS.length) % TRACKS.length)} className="text-2xl opacity-70 hover:opacity-100">⏮</button>
-          <button onClick={() => setPlaying(!playing)} className="w-14 h-14 rounded-full bg-os-ink text-black flex items-center justify-center text-2xl hover:scale-105 transition">
+        
+        <div className="flex items-center gap-8 text-os-ink z-10">
+          <button onClick={() => { setI((i - 1 + STATIONS.length) % STATIONS.length); setPlaying(true); }} className="text-2xl opacity-70 hover:opacity-100 transition-opacity">⏮</button>
+          <button onClick={() => setPlaying(!playing)} className="w-16 h-16 rounded-full bg-os-ink text-black flex items-center justify-center text-2xl hover:scale-105 active:scale-95 transition-all shadow-lg">
             {playing ? "❚❚" : "▶"}
           </button>
-          <button onClick={() => setI((i + 1) % TRACKS.length)} className="text-2xl opacity-70 hover:opacity-100">⏭</button>
+          <button onClick={() => { setI((i + 1) % STATIONS.length); setPlaying(true); }} className="text-2xl opacity-70 hover:opacity-100 transition-opacity">⏭</button>
+        </div>
+        
+        {/* Volume slider */}
+        <div className="w-full max-w-xs z-10 flex items-center gap-3 text-os-ink-dim mt-2">
+           <span className="text-sm">🔈</span>
+           <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(e) => setVolume(parseFloat(e.target.value))} className="flex-1 h-1 bg-white/10 rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full" />
+           <span className="text-sm">🔊</span>
         </div>
       </div>
-      <div className="border-t border-os-hairline p-3 max-h-44 overflow-auto">
-        {TRACKS.map((tr, idx) => (
-          <button key={idx} onClick={() => { setI(idx); setPlaying(true); }} className={`w-full text-left px-3 py-2 rounded-md flex justify-between text-[13px] ${idx === i ? "bg-white/8 text-os-ink" : "text-os-ink-dim hover:bg-white/5"}`}>
-            <span>{tr.title}</span><span className="text-os-ink-faint tabular-nums">{tr.duration}</span>
+      <div className="border-t border-os-hairline p-3 max-h-48 overflow-auto bg-black/40 backdrop-blur-md">
+        <div className="text-[10px] text-os-ink-faint uppercase tracking-wider mb-2 px-3">Radio Stations</div>
+        {STATIONS.map((st, idx) => (
+          <button key={idx} onClick={() => { setI(idx); setPlaying(true); }} className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-[13px] transition-colors ${idx === i ? "bg-os-iris/20 text-os-ink border border-os-iris/30" : "text-os-ink-dim hover:bg-white/5 border border-transparent"}`}>
+            <div className={`w-2 h-2 rounded-full ${idx === i && playing ? "bg-os-signal animate-pulse" : "bg-transparent"}`} />
+            <div className="flex-1 flex flex-col">
+              <span className="font-medium">{st.title}</span>
+              <span className="text-[11px] text-os-ink-faint">{st.artist}</span>
+            </div>
           </button>
         ))}
       </div>

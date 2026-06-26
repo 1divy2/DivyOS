@@ -21,6 +21,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
   const resz = useRef<{ ow: number; oh: number; x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
+  const [snapPreview, setSnapPreview] = useState<"l" | "r" | "f" | null>(null);
   const app = byId(win.appId);
   const isMobile = vp.w < 640;
 
@@ -44,14 +45,20 @@ export function WindowFrame({ win }: { win: WindowState }) {
     const nx = Math.max(0, Math.min(vp.w - 80, drag.current.x + (e.clientX - drag.current.ox)));
     const ny = Math.max(LAYOUT.TOP_BAR, Math.min(vp.h - 40, drag.current.y + (e.clientY - drag.current.oy)));
     move(win.id, nx, ny);
+    
+    if (e.clientX <= 12) setSnapPreview("l");
+    else if (e.clientX >= vp.w - 12) setSnapPreview("r");
+    else if (e.clientY <= LAYOUT.TOP_BAR + 12) setSnapPreview("f");
+    else setSnapPreview(null);
   };
   const onDragEnd = (e: RPE<HTMLDivElement>) => {
     if (!drag.current) return;
-    if (e.clientX <= 4) snap(win.id, "l", vp);
-    else if (e.clientX >= vp.w - 4) snap(win.id, "r", vp);
-    else if (e.clientY <= LAYOUT.TOP_BAR + 4) snap(win.id, "f", vp);
+    if (e.clientX <= 12) snap(win.id, "l", vp);
+    else if (e.clientX >= vp.w - 12) snap(win.id, "r", vp);
+    else if (e.clientY <= LAYOUT.TOP_BAR + 12) snap(win.id, "f", vp);
     drag.current = null;
     setIsDragging(false);
+    setSnapPreview(null);
   };
 
   const onResizeStart = (e: RPE<HTMLDivElement>) => {
@@ -125,6 +132,19 @@ export function WindowFrame({ win }: { win: WindowState }) {
           onPointerDown={onResizeStart}
           onPointerMove={onResizeMove}
           onPointerUp={onResizeEnd}
+        />
+      )}
+      
+      {/* Snap Preview */}
+      {snapPreview && (
+        <div 
+          className="fixed z-[999] pointer-events-none rounded-2xl border-2 border-os-iris/50 bg-os-iris/10 backdrop-blur-sm transition-all duration-200"
+          style={{
+            top: LAYOUT.TOP_BAR + 8,
+            bottom: LAYOUT.DOCK + 8,
+            left: snapPreview === "r" ? vp.w / 2 + 4 : 8,
+            right: snapPreview === "l" ? vp.w / 2 + 4 : 8,
+          }}
         />
       )}
     </motion.div>

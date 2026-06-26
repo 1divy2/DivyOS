@@ -22,6 +22,9 @@ import { TicTacToeApp } from "./apps/games/TicTacToe";
 import { Game2048App } from "./apps/games/Game2048";
 import { MinesweeperApp } from "./apps/games/Minesweeper";
 import { FlappyApp } from "./apps/games/Flappy";
+import { PongApp } from "./apps/games/Pong";
+import { BreakoutApp } from "./apps/games/Breakout";
+import { AsteroidsApp } from "./apps/games/Asteroids";
 
 export type AppDef = {
   id: string;
@@ -65,6 +68,9 @@ export const apps: AppDef[] = [
   { id: "t2048", name: "2048", glyph: "2⁴", component: Game2048App, defaultSize: { w: 360, h: 460 }, description: "Slide & merge", category: "games" },
   { id: "minesweeper", name: "Minesweeper", glyph: "⚑", component: MinesweeperApp, defaultSize: { w: 360, h: 440 }, description: "Sweep the field", category: "games" },
   { id: "flappy", name: "Flappy", glyph: "𓅪", component: FlappyApp, defaultSize: { w: 380, h: 540 }, description: "Tap to fly", category: "games" },
+  { id: "pong", name: "Pong", glyph: "◫", component: PongApp, defaultSize: { w: 680, h: 560 }, description: "Classic table tennis", category: "games" },
+  { id: "breakout", name: "Breakout", glyph: "▤", component: BreakoutApp, defaultSize: { w: 680, h: 560 }, description: "Brick breaker", category: "games" },
+  { id: "asteroids", name: "Asteroids", glyph: "△", component: AsteroidsApp, defaultSize: { w: 680, h: 560 }, description: "Space survival", category: "games" },
 ];
 
 export const byId = (id: string) => apps.find((a) => a.id === id);

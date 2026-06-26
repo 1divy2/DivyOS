@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useNotifications, type Notification } from "../services/notifications";
-import { useOS } from "../store";
+import { useOS, LAYOUT } from "../store";
+import { motion, AnimatePresence } from "motion/react";
 
 const LEVEL_DOT: Record<Notification["level"], string> = {
   info: "text-os-text-dim",
-  success: "text-os-signal",
-  warn: "text-os-warn",
-  error: "text-os-error",
+  success: "text-emerald-400",
+  warn: "text-amber-400",
+  error: "text-red-400",
 };
 
 export function NotificationToasts() {
@@ -25,29 +26,41 @@ export function NotificationToasts() {
 
   if (centerOpen) return null;
 
+  const active = visible[0];
+
   return (
-    <div className="fixed top-10 right-3 z-[80] flex flex-col gap-2 w-[300px] pointer-events-none">
-      {visible.map((n) => (
-        <div
-          key={n.id}
-          className="pointer-events-auto bg-os-panel border border-os-hairline shadow-lg p-3 text-[12px] animate-[notif-in_220ms_ease-out]"
-        >
-          <div className="flex items-center gap-2 mb-1">
-            <span className={LEVEL_DOT[n.level]}>●</span>
-            <span className="text-os-text-faint text-[10px] uppercase tracking-wider">{n.source}</span>
-            <span className="flex-1" />
-            <button
-              aria-label="Dismiss"
-              onClick={() => dismiss(n.id)}
-              className="text-os-text-faint hover:text-os-error"
+    <div className="fixed top-2 left-1/2 -translate-x-1/2 z-[100] pointer-events-none flex flex-col items-center">
+      <AnimatePresence mode="wait">
+        {active && (
+          <motion.div
+            key={active.id}
+            initial={{ width: 140, height: 32, opacity: 0, y: -20, borderRadius: 16 }}
+            animate={{ width: 340, height: active.body ? 80 : 50, opacity: 1, y: 0, borderRadius: 24 }}
+            exit={{ width: 140, height: 32, opacity: 0, y: -20, borderRadius: 16 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="pointer-events-auto bg-black text-white shadow-2xl overflow-hidden relative border border-white/10 backdrop-blur-xl"
+            onClick={() => dismiss(active.id)}
+            style={{ cursor: "pointer" }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.2 }}
+              className="absolute inset-0 flex flex-col justify-center px-5"
             >
-              ×
-            </button>
-          </div>
-          <div className="text-os-text">{n.title}</div>
-          {n.body && <div className="text-os-text-dim mt-1 leading-snug">{n.body}</div>}
-        </div>
-      ))}
+              <div className="flex items-center gap-3">
+                <span className={LEVEL_DOT[active.level]}>●</span>
+                <span className="font-semibold text-sm tracking-tight">{active.title}</span>
+              </div>
+              {active.body && (
+                <div className="text-white/60 text-xs mt-1 ml-5 pr-4 truncate">
+                  {active.body}
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

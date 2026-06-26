@@ -18,10 +18,34 @@ export function SettingsApp() {
   const session = useSession();
 
   const sidebar = (
-    <div className="p-4 space-y-1">
-      <div className="text-os-ink-faint text-[11px] uppercase tracking-wider mb-3 px-2 font-medium">Settings</div>
-      {["Wallpaper", "Appearance", "Motion", "Session", "Reset"].map((s, i) => (
-        <a key={s} href={`#section-${i}`} className="block px-3 py-2 rounded-lg text-os-ink-dim hover:text-os-ink hover:bg-white/5 transition-colors font-medium">
+    <div className="p-3 space-y-0.5">
+      <div className="px-3 py-2 mb-2 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-os-iris to-purple-500 flex items-center justify-center text-white text-lg shadow-md font-semibold">
+          {session.visitorName?.[0]?.toUpperCase() ?? "G"}
+        </div>
+        <div>
+          <div className="text-os-ink text-[13px] font-medium leading-tight">{session.visitorName ?? "Guest User"}</div>
+          <div className="text-os-ink-faint text-[11px]">Administrator</div>
+        </div>
+      </div>
+      
+      <div className="text-os-ink-faint text-[10px] uppercase tracking-wider mb-2 px-3 pt-2 font-semibold">Connectivity</div>
+      {["Wi-Fi", "Bluetooth", "Network"].map((s, i) => (
+        <a key={s} href={`#section-conn`} className="block px-3 py-1.5 rounded-md text-[13px] text-os-ink hover:bg-os-iris/10 hover:text-os-iris transition-colors">
+          {s}
+        </a>
+      ))}
+      
+      <div className="text-os-ink-faint text-[10px] uppercase tracking-wider mb-2 px-3 pt-4 font-semibold">Personalization</div>
+      {["Appearance", "Wallpaper", "Motion"].map((s, i) => (
+        <a key={s} href={`#section-${i}`} className="block px-3 py-1.5 rounded-md text-[13px] text-os-ink hover:bg-os-iris/10 hover:text-os-iris transition-colors">
+          {s}
+        </a>
+      ))}
+      
+      <div className="text-os-ink-faint text-[10px] uppercase tracking-wider mb-2 px-3 pt-4 font-semibold">System</div>
+      {["Session", "Reset"].map((s, i) => (
+        <a key={s} href={`#section-${i+3}`} className="block px-3 py-1.5 rounded-md text-[13px] text-os-ink hover:bg-os-iris/10 hover:text-os-iris transition-colors">
           {s}
         </a>
       ))}
@@ -31,39 +55,68 @@ export function SettingsApp() {
   return (
     <AppFrame sidebar={sidebar}>
       <div className="p-8 sm:p-12 max-w-3xl space-y-16">
+        <section id="section-conn" className="scroll-mt-8">
+          <H>Connectivity</H>
+          <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden divide-y divide-white/10">
+            <div className="px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-md bg-blue-500 text-white flex items-center justify-center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                </div>
+                <div className="text-[13px] font-medium text-os-ink">Wi-Fi</div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-os-ink-faint text-[12px]">Home Network</span>
+                <Toggle checked={true} onChange={() => {}} label="" />
+              </div>
+            </div>
+            <div className="px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-md bg-blue-600 text-white flex items-center justify-center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"></polyline></svg>
+                </div>
+                <div className="text-[13px] font-medium text-os-ink">Bluetooth</div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-os-ink-faint text-[12px]">On</span>
+                <Toggle checked={true} onChange={() => {}} label="" />
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="section-0" className="scroll-mt-8">
+          <H>Appearance</H>
+          <div className="grid grid-cols-2 gap-3 max-w-md">
+            {THEMES.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => s.setTheme(t.id)}
+                className={`text-left rounded-xl px-4 py-3 border-2 transition-all ${s.theme === t.id ? "border-os-iris bg-os-iris/10 text-os-ink shadow-[0_0_15px_rgba(168,180,255,0.2)]" : "border-os-hairline bg-white/5 text-os-ink-dim hover:text-os-ink hover:border-white/20"}`}
+              >
+                <div className="font-medium text-[13px]">{t.label}</div>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section id="section-1" className="scroll-mt-8">
           <H>Wallpaper</H>
           <div className="grid grid-cols-3 gap-3">
             {WALLPAPERS.map((w) => (
               <button
                 key={w.id}
                 onClick={() => wp.setWallpaper(w.id)}
-                className={`group text-left rounded-xl overflow-hidden border-2 transition ${wp.wallpaperId === w.id ? "border-os-iris" : "border-os-hairline hover:border-white/15"}`}
+                className={`group text-left rounded-xl overflow-hidden border-2 transition ${wp.wallpaperId === w.id ? "border-os-iris shadow-[0_0_15px_rgba(168,180,255,0.2)]" : "border-os-hairline hover:border-white/20"}`}
               >
                 <div className="aspect-video w-full" style={{ background: `linear-gradient(135deg, ${w.palette[0]} 0%, ${w.palette[1]} 50%, ${w.palette[2]} 100%)` }}/>
-                <div className="px-3 py-2">
+                <div className="px-3 py-2 bg-white/5">
                   <div className="text-os-ink text-[13px] font-medium">{w.name}</div>
                   <div className="text-os-ink-faint text-[11px] mt-0.5">{w.description}</div>
                 </div>
               </button>
             ))}
           </div>
-        </section>
-
-        <section id="section-1">
-          <H>Appearance</H>
-          <div className="grid grid-cols-2 gap-2 max-w-md">
-            {THEMES.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => s.setTheme(t.id)}
-                className={`text-left rounded-lg px-4 py-3 border ${s.theme === t.id ? "border-os-iris text-os-ink bg-os-iris/10" : "border-os-hairline text-os-ink-dim hover:text-os-ink"}`}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-          <p className="text-os-ink-faint text-[12px] mt-3">More themes ship with Theme Studio.</p>
         </section>
 
         <section id="section-2">
@@ -82,31 +135,41 @@ export function SettingsApp() {
           </div>
         </section>
 
-        <section id="section-3">
+        <section id="section-3" className="scroll-mt-8">
           <H>Session</H>
-          <div className="text-os-ink-dim text-[13px] mb-3">Signed in as <span className="text-os-ink font-medium">{session.visitorName ?? "guest"}</span></div>
-          <div className="flex gap-2 flex-wrap">
-            <Btn onClick={session.lock}>Lock</Btn>
-            <Btn onClick={session.logout}>Log out</Btn>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-3 flex items-center justify-between">
+             <div className="flex items-center gap-4">
+               <div className="w-12 h-12 rounded-full bg-os-iris/20 text-os-iris flex items-center justify-center text-xl">👤</div>
+               <div>
+                 <div className="text-os-ink font-medium text-[14px]">{session.visitorName ?? "Guest"}</div>
+                 <div className="text-os-ink-faint text-[12px]">Local Account</div>
+               </div>
+             </div>
+             <Btn onClick={session.logout}>Log out</Btn>
+          </div>
+          <div className="flex gap-2">
+            <Btn onClick={session.lock}>Lock Screen</Btn>
             <Btn onClick={session.restart} tone="warn">Restart</Btn>
             <Btn onClick={session.shutdown} tone="danger">Shut down</Btn>
           </div>
         </section>
 
-        <section id="section-4">
+        <section id="section-4" className="scroll-mt-8">
           <H>Reset</H>
-          <p className="text-os-ink-dim text-[13px] mb-3 max-w-md">Erase every preference, window position, wallpaper, and saved note. The OS reboots to a clean state.</p>
-          <Btn
-            tone="danger"
-            onClick={() => {
-              useOS.persist.clearStorage();
-              useSettings.persist.clearStorage();
-              useSession.persist.clearStorage();
-              useWallpaper.persist.clearStorage();
-              useNotifications.persist.clearStorage();
-              location.reload();
-            }}
-          >Factory reset</Btn>
+          <div className="bg-os-error/10 border border-os-error/20 rounded-xl p-5">
+            <p className="text-os-ink-dim text-[13px] mb-4 max-w-md">Erase every preference, window position, wallpaper, and saved note. The OS reboots to a clean state.</p>
+            <Btn
+              tone="danger"
+              onClick={() => {
+                useOS.persist.clearStorage();
+                useSettings.persist.clearStorage();
+                useSession.persist.clearStorage();
+                useWallpaper.persist.clearStorage();
+                useNotifications.persist.clearStorage();
+                location.reload();
+              }}
+            >Erase All Content and Settings…</Btn>
+          </div>
         </section>
       </div>
     </AppFrame>
