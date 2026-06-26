@@ -55,9 +55,9 @@ export function Boot() {
         {/* Minimal Progress Bar */}
         <div className="w-48 h-[3px] rounded-full bg-white/10 overflow-hidden relative">
           <motion.div 
-            className="absolute inset-y-0 left-0 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)] rounded-full"
-            initial={{ width: "0%" }}
-            animate={{ width: `${progress}%` }}
+            className="absolute inset-y-0 left-0 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)] rounded-full w-full origin-left"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: progress / 100 }}
             transition={{ ease: "linear", duration: 0.1 }}
           />
         </div>

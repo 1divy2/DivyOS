@@ -32,10 +32,10 @@ export function DesktopContextMenu({ children }: { children: ReactNode }) {
   return (
     <ContextMenu>
       <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
-      <ContextMenuContent className="font-mono text-[12px] min-w-[210px] bg-os-panel border-os-hairline text-os-text">
+      <ContextMenuContent className="font-mono text-[12px] min-w-[210px] glass-strong shadow-2xl rounded-xl p-1.5 border border-white/10 text-os-text">
         <ContextMenuSub>
           <ContextMenuSubTrigger>open app</ContextMenuSubTrigger>
-          <ContextMenuSubContent className="bg-os-panel border-os-hairline text-os-text max-h-[300px] overflow-auto">
+          <ContextMenuSubContent className="glass-strong shadow-2xl rounded-xl p-1.5 border border-white/10 text-os-text max-h-[300px] overflow-auto">
             {apps.map((a) => (
               <ContextMenuItem
                 key={a.id}
@@ -50,7 +50,7 @@ export function DesktopContextMenu({ children }: { children: ReactNode }) {
 
         <ContextMenuSub>
           <ContextMenuSubTrigger>wallpaper</ContextMenuSubTrigger>
-          <ContextMenuSubContent className="bg-os-panel border-os-hairline text-os-text">
+          <ContextMenuSubContent className="glass-strong shadow-2xl rounded-xl p-1.5 border border-white/10 text-os-text">
             {WALLPAPERS.map((w) => (
               <ContextMenuItem key={w.id} onSelect={() => setWallpaper(w.id)}>
                 <span className="text-os-signal mr-2 w-3 inline-block">
@@ -64,7 +64,7 @@ export function DesktopContextMenu({ children }: { children: ReactNode }) {
 
         <ContextMenuSub>
           <ContextMenuSubTrigger>theme</ContextMenuSubTrigger>
-          <ContextMenuSubContent className="bg-os-panel border-os-hairline text-os-text">
+          <ContextMenuSubContent className="glass-strong shadow-2xl rounded-xl p-1.5 border border-white/10 text-os-text">
             {themes.map((t) => (
               <ContextMenuItem key={t} onSelect={() => setTheme(t)}>
                 <span className="text-os-signal mr-2 w-3 inline-block">

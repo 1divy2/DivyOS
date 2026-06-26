@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type PointerEvent as RPE, type ReactNode } from "react";
+import React, { useEffect, useRef, useState, type PointerEvent as RPE, type ReactNode } from "react";
 import { motion, useDragControls } from "motion/react";
 import { useOS, LAYOUT, type WindowState } from "./store";
 import { byId } from "./registry";
@@ -14,8 +14,14 @@ function useViewport() {
   return vp;
 }
 
-export function WindowFrame({ win }: { win: WindowState }) {
-  const { focus, close, minimize, toggleMax, move, resize, snap } = useOS();
+export const WindowFrame = React.memo(function WindowFrame({ win }: { win: WindowState }) {
+  const focus = useOS((s) => s.focus);
+  const close = useOS((s) => s.close);
+  const minimize = useOS((s) => s.minimize);
+  const toggleMax = useOS((s) => s.toggleMax);
+  const move = useOS((s) => s.move);
+  const resize = useOS((s) => s.resize);
+  const snap = useOS((s) => s.snap);
   const vp = useViewport();
   const dragControls = useDragControls();
   const resz = useRef<{ ow: number; oh: number; x: number; y: number } | null>(null);
@@ -165,7 +171,7 @@ export function WindowFrame({ win }: { win: WindowState }) {
       )}
     </motion.div>
   );
-}
+});
 
 function WindowBtn({ type, onClick }: { type: "minimize" | "maximize" | "close"; onClick: () => void }) {
   const [hovered, setHovered] = useState(false);
