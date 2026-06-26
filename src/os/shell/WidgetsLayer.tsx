@@ -92,7 +92,7 @@ function DigitalClockWidget() {
     <motion.div 
       drag dragMomentum={false}
       className="absolute pointer-events-auto w-[280px] p-6 rounded-[2rem] text-white shadow-2xl flex flex-col items-center justify-center"
-      style={{ top: 48, left: "50%", marginLeft: -140, background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)" }}
+      style={{ top: 48, left: "calc(50vw - 140px)", background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="flex gap-4 items-baseline">
@@ -110,7 +110,7 @@ function CalendarWidget() {
     <motion.div 
       drag dragMomentum={false}
       className="absolute pointer-events-auto w-36 h-36 p-3 rounded-[1.5rem] text-white shadow-2xl flex flex-col"
-      style={{ top: 48, right: 184, background: "linear-gradient(135deg, #818cf8 0%, #6366f1 100%)" }}
+      style={{ top: 48, left: "calc(100vw - 328px)", background: "linear-gradient(135deg, #818cf8 0%, #6366f1 100%)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="text-[10px] font-bold uppercase tracking-widest mb-1 text-white/90">June</div>
@@ -138,7 +138,7 @@ function AnalogClockWidget() {
     <motion.div 
       drag dragMomentum={false}
       className="absolute pointer-events-auto w-36 h-36 rounded-[1.5rem] shadow-2xl flex items-center justify-center"
-      style={{ top: 48, right: 24, background: "linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)" }}
+      style={{ top: 48, left: "calc(100vw - 168px)", background: "linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="relative w-32 h-32 rounded-full flex items-center justify-center">
@@ -170,7 +170,7 @@ function UsageWidget() {
     <motion.div 
       drag dragMomentum={false}
       className="absolute pointer-events-auto w-[288px] h-32 p-4 rounded-[1.5rem] text-white shadow-2xl flex flex-col justify-between"
-      style={{ top: 200, right: 24, background: "linear-gradient(135deg, #818cf8 0%, #4f46e5 100%)" }}
+      style={{ top: 200, left: "calc(100vw - 312px)", background: "linear-gradient(135deg, #818cf8 0%, #4f46e5 100%)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="flex justify-between items-start">
