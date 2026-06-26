@@ -26,7 +26,7 @@ function ClockWidget() {
     <motion.div 
       drag 
       dragMomentum={false}
-      className="pointer-events-auto w-64 h-64 rounded-[40px] glass-strong border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden backdrop-blur-2xl"
+      className="pointer-events-auto w-64 h-64 rounded-[40px] glass-strong border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden"
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
@@ -66,7 +66,7 @@ function SystemWidget() {
     <motion.div 
       drag 
       dragMomentum={false}
-      className="pointer-events-auto w-64 p-6 rounded-[32px] glass-strong border border-white/10 shadow-2xl flex flex-col gap-4 relative overflow-hidden backdrop-blur-2xl"
+      className="pointer-events-auto w-64 p-6 rounded-[32px] glass-strong border border-white/10 shadow-2xl flex flex-col gap-4 relative overflow-hidden"
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >

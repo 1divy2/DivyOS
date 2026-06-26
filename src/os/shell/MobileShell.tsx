@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useOS } from "../store";
 import { apps } from "../registry";
-import { AppIcon } from "./icons/AppIcon";
+import { AppIcon } from "../icons/AppIcon";
 
 export function MobileShell() {
   const openApp = useOS((s) => s.open);
