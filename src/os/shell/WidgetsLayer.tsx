@@ -18,8 +18,8 @@ function WeatherWidget() {
   return (
     <motion.div 
       drag dragMomentum={false}
-      className="absolute pointer-events-auto w-72 p-4 rounded-3xl text-white shadow-2xl flex flex-col justify-between"
-      style={{ top: 48, left: 24, background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)" }}
+      className="absolute pointer-events-auto w-72 p-4 rounded-[24px] text-white shadow-2xl flex flex-col justify-between border border-white/10"
+      style={{ top: 48, left: 24, background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="flex justify-between items-start">
@@ -58,8 +58,8 @@ function BatteryWidget() {
   return (
     <motion.div 
       drag dragMomentum={false}
-      className="absolute pointer-events-auto w-72 p-5 rounded-3xl text-white shadow-2xl flex items-center justify-between"
-      style={{ top: 220, left: 24, background: "linear-gradient(135deg, #6366f1 0%, #3b82f6 100%)", backdropFilter: "blur(20px)" }}
+      className="absolute pointer-events-auto w-72 p-5 rounded-[24px] text-white shadow-2xl flex items-center justify-between border border-white/10"
+      style={{ top: 220, left: 24, background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="flex flex-col items-center">
@@ -91,16 +91,24 @@ function DigitalClockWidget() {
   return (
     <motion.div 
       drag dragMomentum={false}
-      className="absolute pointer-events-auto w-[280px] p-6 rounded-[2rem] text-white shadow-2xl flex flex-col items-center justify-center"
-      style={{ top: 48, left: "calc(50vw - 140px)", background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)" }}
+      className="absolute pointer-events-auto w-[320px] p-6 rounded-[24px] text-white shadow-2xl flex flex-col items-center justify-center border border-white/10"
+      style={{ top: 48, left: "calc(50vw - 160px)", background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       whileHover={{ scale: 1.02 }}
     >
-      <div className="flex gap-4 items-baseline">
-        <span className="text-5xl font-bold tracking-tight">{h}</span>
-        <span className="text-5xl font-bold tracking-tight">{m}</span>
-        <span className="text-4xl font-medium tracking-tight opacity-90">{s}</span>
+      <div className="flex gap-2 items-center">
+        <div className="bg-black/30 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
+          <span className="text-6xl font-bold tracking-tight text-white/90">{h}</span>
+        </div>
+        <div className="text-4xl font-bold opacity-50 pb-2">:</div>
+        <div className="bg-black/30 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
+          <span className="text-6xl font-bold tracking-tight text-white/90">{m}</span>
+        </div>
+        <div className="text-4xl font-bold opacity-50 pb-2">:</div>
+        <div className="bg-black/30 px-4 py-3 rounded-xl border border-white/5 shadow-inner">
+          <span className="text-6xl font-medium tracking-tight text-white/70">{s}</span>
+        </div>
       </div>
-      <div className="text-sm font-medium mt-2 opacity-90 tracking-wide">{dateStr}</div>
+      <div className="text-sm font-medium mt-4 text-white/80 tracking-wide uppercase bg-black/20 px-4 py-1 rounded-full border border-white/5">{dateStr}</div>
     </motion.div>
   );
 }
@@ -109,8 +117,8 @@ function CalendarWidget() {
   return (
     <motion.div 
       drag dragMomentum={false}
-      className="absolute pointer-events-auto w-36 h-36 p-3 rounded-[1.5rem] text-white shadow-2xl flex flex-col"
-      style={{ top: 48, left: "calc(100vw - 328px)", background: "linear-gradient(135deg, #818cf8 0%, #6366f1 100%)" }}
+      className="absolute pointer-events-auto w-36 h-36 p-3 rounded-[24px] text-white shadow-2xl flex flex-col border border-white/10"
+      style={{ top: 48, left: "calc(100vw - 328px)", background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="text-[10px] font-bold uppercase tracking-widest mb-1 text-white/90">June</div>
@@ -137,19 +145,18 @@ function AnalogClockWidget() {
   return (
     <motion.div 
       drag dragMomentum={false}
-      className="absolute pointer-events-auto w-36 h-36 rounded-[1.5rem] shadow-2xl flex items-center justify-center"
-      style={{ top: 48, left: "calc(100vw - 168px)", background: "linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)" }}
+      className="absolute pointer-events-auto w-36 h-36 rounded-[24px] shadow-2xl flex items-center justify-center border border-white/10"
+      style={{ top: 48, left: "calc(100vw - 168px)", background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="relative w-32 h-32 rounded-full flex items-center justify-center">
         {/* Numbers */}
         {[...Array(12)].map((_, i) => {
           const num = i === 0 ? 12 : i;
-          return (
-            <div 
+          return <div 
               key={i} 
-              className="absolute w-6 h-6 flex items-center justify-center text-white font-semibold text-xs"
-              style={{ transform: `rotate(${i * 30}deg) translateY(-12px)` }}
+              className="absolute w-6 h-6 flex items-center justify-center text-white/90 font-medium text-[11px]"
+              style={{ transform: `rotate(${i * 30}deg) translateY(-46px)` }}
             >
               <span style={{ transform: `rotate(${-i * 30}deg)` }}>{num}</span>
             </div>
@@ -169,8 +176,8 @@ function UsageWidget() {
   return (
     <motion.div 
       drag dragMomentum={false}
-      className="absolute pointer-events-auto w-[288px] h-32 p-4 rounded-[1.5rem] text-white shadow-2xl flex flex-col justify-between"
-      style={{ top: 200, left: "calc(100vw - 312px)", background: "linear-gradient(135deg, #818cf8 0%, #4f46e5 100%)" }}
+      className="absolute pointer-events-auto w-[288px] h-32 p-4 rounded-[24px] text-white shadow-2xl flex flex-col justify-between border border-white/10"
+      style={{ top: 200, left: "calc(100vw - 312px)", background: "rgba(30, 30, 35, 0.4)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="flex justify-between items-start">
