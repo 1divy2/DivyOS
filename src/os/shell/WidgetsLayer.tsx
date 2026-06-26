@@ -153,7 +153,8 @@ function AnalogClockWidget() {
         {/* Numbers */}
         {[...Array(12)].map((_, i) => {
           const num = i === 0 ? 12 : i;
-          return <div 
+          return (
+            <div 
               key={i} 
               className="absolute w-6 h-6 flex items-center justify-center text-white/90 font-medium text-[11px]"
               style={{ transform: `rotate(${i * 30}deg) translateY(-46px)` }}
