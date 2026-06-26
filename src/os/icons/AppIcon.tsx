@@ -259,7 +259,7 @@ export function AppIcon({ id, size = 44, style, className }: { id: string; size?
   const def = ICONS[id] ?? FALLBACK;
   const gid = `g-${id}`;
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className={className} style={style} aria-hidden>
+    <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`} className={className} style={style} aria-hidden>
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor={def.from}/>
