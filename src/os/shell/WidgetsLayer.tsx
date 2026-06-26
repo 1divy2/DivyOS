@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 export function WidgetsLayer() {
   return (
@@ -79,6 +79,27 @@ function BatteryWidget() {
   );
 }
 
+function FlipDigit({ value }: { value: string }) {
+  return (
+    <div className="relative w-16 h-20 flex items-center justify-center overflow-hidden [perspective:1000px]">
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          key={value}
+          initial={{ rotateX: -90, opacity: 0 }}
+          animate={{ rotateX: 0, opacity: 1 }}
+          exit={{ rotateX: 90, opacity: 0 }}
+          transition={{ duration: 0.4, type: "spring", bounce: 0 }}
+          className="absolute inset-0 flex items-center justify-center transform-gpu"
+        >
+          <span className="text-6xl font-medium tracking-tighter text-white drop-shadow-md scale-y-[1.35] scale-x-95">
+            {value}
+          </span>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function DigitalClockWidget() {
   const [time, setTime] = useState(new Date());
   useEffect(() => { const t = setInterval(() => setTime(new Date()), 1000); return () => clearInterval(t); }, []);
@@ -96,22 +117,22 @@ function DigitalClockWidget() {
       whileHover={{ scale: 1.02 }}
     >
       <div className="flex gap-3 items-center">
-        <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 shadow-lg flex flex-col items-center justify-center">
-          <span className="text-5xl font-semibold tracking-tighter text-white drop-shadow-md">{h}</span>
+        <div className="bg-white/10 backdrop-blur-md px-1 py-1 rounded-2xl border border-white/10 shadow-lg flex flex-col items-center justify-center">
+          <FlipDigit value={h} />
         </div>
         <div className="flex flex-col gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-white/50" />
           <div className="w-1.5 h-1.5 rounded-full bg-white/50" />
         </div>
-        <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 shadow-lg flex flex-col items-center justify-center">
-          <span className="text-5xl font-semibold tracking-tighter text-white drop-shadow-md">{m}</span>
+        <div className="bg-white/10 backdrop-blur-md px-1 py-1 rounded-2xl border border-white/10 shadow-lg flex flex-col items-center justify-center">
+          <FlipDigit value={m} />
         </div>
         <div className="flex flex-col gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-white/50" />
           <div className="w-1.5 h-1.5 rounded-full bg-white/50" />
         </div>
-        <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 shadow-lg flex flex-col items-center justify-center">
-          <span className="text-5xl font-semibold tracking-tighter text-white drop-shadow-md">{s}</span>
+        <div className="bg-white/10 backdrop-blur-md px-1 py-1 rounded-2xl border border-white/10 shadow-lg flex flex-col items-center justify-center">
+          <FlipDigit value={s} />
         </div>
       </div>
       <div className="text-sm font-semibold mt-4 text-white/90 tracking-widest uppercase">{dateStr}</div>
