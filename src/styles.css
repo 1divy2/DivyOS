@@ -95,9 +95,9 @@
   /* Default fallback (cortex) */
   --os-bg:        #0C0A09;
   --os-bg-2:      #1C1917;
-  --os-panel:     rgba(28, 25, 23, 0.7);
-  --os-panel-2:   rgba(68, 64, 60, 0.7);
-  --os-glass:     rgba(28, 25, 23, 0.65);
+  --os-panel:     rgba(28, 25, 23, 0.88);
+  --os-panel-2:   rgba(68, 64, 60, 0.88);
+  --os-glass:     rgba(28, 25, 23, 0.85);
   --os-hairline:  rgba(255, 255, 255, 0.1);
   --os-stroke:    rgba(255, 255, 255, 0.15);
   --os-ink:       #FAFAF9;
@@ -120,9 +120,9 @@
 .theme-cortex {
   --os-bg:        #0C0A09;
   --os-bg-2:      #1C1917;
-  --os-panel:     rgba(28, 25, 23, 0.7);
-  --os-panel-2:   rgba(68, 64, 60, 0.7);
-  --os-glass:     rgba(28, 25, 23, 0.65);
+  --os-panel:     rgba(28, 25, 23, 0.88);
+  --os-panel-2:   rgba(68, 64, 60, 0.88);
+  --os-glass:     rgba(28, 25, 23, 0.85);
   --os-ink:       #FAFAF9;
   --os-ink-dim:   #A8A29E;
   --os-ink-faint: #78716C;
@@ -133,9 +133,9 @@
 .theme-retro {
   --os-bg:        #2d1b00;
   --os-bg-2:      #4d3100;
-  --os-panel:     rgba(45, 27, 0, 0.85);
-  --os-panel-2:   rgba(77, 49, 0, 0.85);
-  --os-glass:     rgba(45, 27, 0, 0.8);
+  --os-panel:     rgba(45, 27, 0, 0.95);
+  --os-panel-2:   rgba(77, 49, 0, 0.95);
+  --os-glass:     rgba(45, 27, 0, 0.90);
   --os-hairline:  rgba(255, 170, 0, 0.2);
   --os-stroke:    rgba(255, 170, 0, 0.3);
   --os-ink:       #ffaa00;
@@ -155,9 +155,9 @@
 .theme-minimal {
   --os-bg:        #ffffff;
   --os-bg-2:      #f4f4f5;
-  --os-panel:     rgba(255, 255, 255, 0.9);
-  --os-panel-2:   rgba(244, 244, 245, 0.9);
-  --os-glass:     rgba(255, 255, 255, 0.85);
+  --os-panel:     rgba(255, 255, 255, 0.95);
+  --os-panel-2:   rgba(244, 244, 245, 0.95);
+  --os-glass:     rgba(255, 255, 255, 0.90);
   --os-hairline:  rgba(0, 0, 0, 0.1);
   --os-stroke:    rgba(0, 0, 0, 0.15);
   --os-ink:       #09090b;
@@ -177,9 +177,9 @@
 .theme-blueprint {
   --os-bg:        #003366;
   --os-bg-2:      #004080;
-  --os-panel:     rgba(0, 51, 102, 0.85);
-  --os-panel-2:   rgba(0, 64, 128, 0.85);
-  --os-glass:     rgba(0, 51, 102, 0.8);
+  --os-panel:     rgba(0, 51, 102, 0.95);
+  --os-panel-2:   rgba(0, 64, 128, 0.95);
+  --os-glass:     rgba(0, 51, 102, 0.90);
   --os-hairline:  rgba(255, 255, 255, 0.2);
   --os-stroke:    rgba(255, 255, 255, 0.3);
   --os-ink:       #ffffff;
