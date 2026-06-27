@@ -29,7 +29,7 @@ export function MobileShell() {
   const dockApps = dockAppIds.map(id => apps.find(a => a.id === id)).filter(Boolean);
 
   // Home screen grid apps
-  const gridApps = apps.filter(a => !dockAppIds.includes(a.id) && a.category !== "games");
+  const gridApps = apps.filter(a => !dockAppIds.includes(a.id) && a.category !== "games" && !a.hidden);
 
   return (
     <div className="absolute inset-0 flex flex-col">

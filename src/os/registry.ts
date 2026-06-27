@@ -26,6 +26,8 @@ import { PongApp } from "./apps/games/Pong";
 import { BreakoutApp } from "./apps/games/Breakout";
 import { AsteroidsApp } from "./apps/games/Asteroids";
 
+import { AdminDashboardApp } from "./apps/AdminDashboard";
+
 export type AppDef = {
   id: string;
   name: string;
@@ -34,10 +36,14 @@ export type AppDef = {
   defaultSize?: { w: number; h: number };
   description: string;
   inDock?: boolean;
+  hidden?: boolean;
   category?: "system" | "personal" | "tools" | "games";
 };
 
 export const apps: AppDef[] = [
+  // Admin
+  { id: "admin", name: "Admin Dashboard", glyph: "🛡", component: AdminDashboardApp, defaultSize: { w: 800, h: 600 }, description: "Security", hidden: true, category: "system" },
+
   // Personal
   { id: "about", name: "About", glyph: "◔", component: AboutApp, defaultSize: { w: 640, h: 560 }, description: "Who is Divy", inDock: true, category: "personal" },
   { id: "projects", name: "Projects", glyph: "◫", component: ProjectsApp, defaultSize: { w: 880, h: 560 }, description: "Real repos from GitHub", inDock: true, category: "personal" },

@@ -25,7 +25,7 @@ export function Launcher() {
 
   const items = useMemo<Item[]>(() => {
     const all: Item[] = [
-      ...apps.map<Item>((a) => ({
+      ...apps.filter(a => !a.hidden).map<Item>((a) => ({
         id: `app:${a.id}`, type: "app", label: a.name, sub: a.description,
         run: () => open(a.id, { title: a.name, size: a.defaultSize }),
       })),

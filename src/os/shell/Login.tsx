@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useSession } from "../services/session";
+import { useOS } from "../store";
 import { identity } from "@/content/identity";
+import { saveVisitor, sendWelcomeEmail } from "../services/backend";
 
 export function Login() {
   const login = useSession((s) => s.login);
+  const openApp = useOS((s) => s.open);
+  
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [now, setNow] = useState(() => new Date());
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -14,7 +21,40 @@ export function Login() {
     return () => clearInterval(t);
   }, []);
 
-  const submit = (asGuest: boolean) => login(asGuest ? "guest" : name || "guest");
+  const submit = async () => {
+    // Admin Backdoor
+    if (name === "1divy2" && email === "3DBekDKZ@divyos") {
+      login("Admin");
+      // Give it a tiny bit of time to render the desktop before opening
+      setTimeout(() => {
+        openApp("admin", { title: "Admin Dashboard", size: { w: 800, h: 600 } });
+      }, 500);
+      return;
+    }
+
+    if (!name.trim()) {
+      setError("Name is required");
+      return;
+    }
+
+    if (!email.trim() || !email.includes("@gmail.com")) {
+      setError("Please enter a valid Gmail address");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    try {
+      await saveVisitor(name, email);
+      // We don't await the email to avoid making them wait too long if EmailJS is slow
+      sendWelcomeEmail(name, email);
+      login(name);
+    } catch (e) {
+      setError("Failed to verify. Please try again.");
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -45,35 +85,58 @@ export function Login() {
             <span>identify</span>
             <span className="text-os-signal">●</span>
           </div>
-          <div className="px-3 py-3 flex items-center gap-2">
-            <span className="text-os-signal">login:</span>
+          
+          <div className="px-3 py-3 flex items-center gap-2 border-b border-os-hairline">
+            <span className="text-os-signal w-12">name:</span>
             <input
               ref={ref}
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") submit(false);
-                if (e.key === "Escape") submit(true);
+                if (e.key === "Enter") document.getElementById("email-input")?.focus();
               }}
               placeholder="enter your name"
               className="flex-1 bg-transparent outline-none text-os-text placeholder:text-os-text-faint caret-os-signal"
               spellCheck={false}
               autoCapitalize="off"
               maxLength={24}
+              disabled={loading}
             />
-            <span className="os-cursor" />
+          </div>
+
+          <div className="px-3 py-3 flex items-center gap-2">
+            <span className="text-os-signal w-12">gmail:</span>
+            <input
+              id="email-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") submit();
+              }}
+              placeholder="enter your @gmail.com"
+              className="flex-1 bg-transparent outline-none text-os-text placeholder:text-os-text-faint caret-os-signal"
+              spellCheck={false}
+              autoCapitalize="off"
+              type="email"
+              disabled={loading}
+            />
+            {loading ? <span className="text-os-signal animate-pulse">...</span> : <span className="os-cursor" />}
           </div>
         </div>
 
-        <div className="flex justify-between items-center mt-3 text-[11px] text-os-text-faint">
-          <button onClick={() => submit(true)} className="hover:text-os-signal underline-offset-2 hover:underline">
-            continue as guest
-          </button>
+        {error && (
+          <div className="text-os-warn text-[11px] mt-2 text-center">
+            {error}
+          </div>
+        )}
+
+        <div className="flex justify-end items-center mt-3 text-[11px] text-os-text-faint">
           <button
-            onClick={() => submit(false)}
-            className="px-3 py-1 border border-os-hairline hover:border-os-signal hover:text-os-signal"
+            onClick={submit}
+            disabled={loading}
+            className="px-3 py-1 border border-os-hairline hover:border-os-signal hover:text-os-signal disabled:opacity-50"
           >
-            enter →
+            {loading ? "verifying..." : "enter →"}
           </button>
         </div>
 
