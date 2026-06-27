@@ -29,14 +29,7 @@ export function SettingsApp() {
         </div>
       </div>
       
-      <div className="text-os-ink-faint text-[10px] uppercase tracking-wider mb-2 px-3 pt-2 font-semibold">Connectivity</div>
-      {["Wi-Fi", "Bluetooth", "Network"].map((s, i) => (
-        <a key={s} href={`#section-conn`} className="block px-3 py-1.5 rounded-md text-[13px] text-os-ink hover:bg-os-iris/10 hover:text-os-iris transition-colors">
-          {s}
-        </a>
-      ))}
-      
-      <div className="text-os-ink-faint text-[10px] uppercase tracking-wider mb-2 px-3 pt-4 font-semibold">Personalization</div>
+      <div className="text-os-ink-faint text-[10px] uppercase tracking-wider mb-2 px-3 pt-2 font-semibold">Personalization</div>
       {["Appearance", "Wallpaper", "Motion"].map((s, i) => (
         <a key={s} href={`#section-${i}`} className="block px-3 py-1.5 rounded-md text-[13px] text-os-ink hover:bg-os-iris/10 hover:text-os-iris transition-colors">
           {s}
@@ -55,35 +48,6 @@ export function SettingsApp() {
   return (
     <AppFrame sidebar={sidebar}>
       <div className="p-8 sm:p-12 max-w-3xl space-y-16">
-        <section id="section-conn" className="scroll-mt-8">
-          <H>Connectivity</H>
-          <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden divide-y divide-white/10">
-            <div className="px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-md bg-blue-500 text-white flex items-center justify-center">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
-                </div>
-                <div className="text-[13px] font-medium text-os-ink">Wi-Fi</div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-os-ink-faint text-[12px]">Home Network</span>
-                <Toggle checked={true} onChange={() => {}} label="" />
-              </div>
-            </div>
-            <div className="px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-md bg-blue-600 text-white flex items-center justify-center">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"></polyline></svg>
-                </div>
-                <div className="text-[13px] font-medium text-os-ink">Bluetooth</div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-os-ink-faint text-[12px]">On</span>
-                <Toggle checked={true} onChange={() => {}} label="" />
-              </div>
-            </div>
-          </div>
-        </section>
 
         <section id="section-0" className="scroll-mt-8">
           <H>Appearance</H>

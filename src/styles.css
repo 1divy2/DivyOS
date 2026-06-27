@@ -131,69 +131,69 @@
 }
 
 .theme-retro {
-  --os-bg:        #2d1b00;
-  --os-bg-2:      #4d3100;
-  --os-panel:     rgba(45, 27, 0, 0.95);
-  --os-panel-2:   rgba(77, 49, 0, 0.95);
-  --os-glass:     rgba(45, 27, 0, 0.90);
-  --os-hairline:  rgba(255, 170, 0, 0.2);
-  --os-stroke:    rgba(255, 170, 0, 0.3);
-  --os-ink:       #ffaa00;
-  --os-ink-dim:   #cc8800;
-  --os-ink-faint: #996600;
-  --os-iris:      #ffaa00;
-  --os-amber:     #ffcc00;
-  --os-rose:      #ff5500;
-  --os-mint:      #00ffaa;
-  --os-signal:    #ffaa00;
-  --os-warn:      #ffaa00;
-  --os-error:     #ff0000;
-  --shadow-window: 0 20px 40px rgba(255,170,0,0.1), inset 0 1px 0 rgba(255,170,0,0.2);
-  --shadow-glow-iris: 0 0 60px -10px rgba(255,170,0,0.3);
+  --os-bg:        #0d0221;
+  --os-bg-2:      #1a0b38;
+  --os-panel:     rgba(13, 2, 33, 0.95);
+  --os-panel-2:   rgba(26, 11, 56, 0.95);
+  --os-glass:     rgba(13, 2, 33, 0.90);
+  --os-hairline:  rgba(255, 0, 127, 0.25);
+  --os-stroke:    rgba(0, 240, 255, 0.3);
+  --os-ink:       #ffffff;
+  --os-ink-dim:   #a393eb;
+  --os-ink-faint: #5e4a8a;
+  --os-iris:      #ff007f;
+  --os-amber:     #f8e16c;
+  --os-rose:      #ff4f8b;
+  --os-mint:      #00f0ff;
+  --os-signal:    #00f0ff;
+  --os-warn:      #f8e16c;
+  --os-error:     #ff003c;
+  --shadow-window: 0 20px 40px rgba(255,0,127,0.15), inset 0 1px 0 rgba(0,240,255,0.2);
+  --shadow-glow-iris: 0 0 60px -10px rgba(255,0,127,0.4);
 }
 
 .theme-minimal {
-  --os-bg:        #ffffff;
-  --os-bg-2:      #f4f4f5;
-  --os-panel:     rgba(255, 255, 255, 0.95);
-  --os-panel-2:   rgba(244, 244, 245, 0.95);
-  --os-glass:     rgba(255, 255, 255, 0.90);
-  --os-hairline:  rgba(0, 0, 0, 0.1);
-  --os-stroke:    rgba(0, 0, 0, 0.15);
-  --os-ink:       #09090b;
-  --os-ink-dim:   #71717a;
-  --os-ink-faint: #a1a1aa;
-  --os-iris:      #09090b;
-  --os-amber:     #d97706;
-  --os-rose:      #e11d48;
-  --os-mint:      #059669;
-  --os-signal:    #09090b;
-  --os-warn:      #d97706;
-  --os-error:     #dc2626;
-  --shadow-window: 0 20px 40px rgba(0,0,0,0.1), inset 0 1px 0 rgba(0,0,0,0.05);
+  --os-bg:        #fcfcfc;
+  --os-bg-2:      #f5f5f5;
+  --os-panel:     rgba(252, 252, 252, 0.95);
+  --os-panel-2:   rgba(245, 245, 245, 0.95);
+  --os-glass:     rgba(252, 252, 252, 0.90);
+  --os-hairline:  rgba(0, 0, 0, 0.08);
+  --os-stroke:    rgba(0, 0, 0, 0.12);
+  --os-ink:       #111111;
+  --os-ink-dim:   #666666;
+  --os-ink-faint: #999999;
+  --os-iris:      #000000;
+  --os-amber:     #b45309;
+  --os-rose:      #be123c;
+  --os-mint:      #047857;
+  --os-signal:    #000000;
+  --os-warn:      #b45309;
+  --os-error:     #b91c1c;
+  --shadow-window: 0 20px 40px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5);
   --shadow-glow-iris: 0 0 60px -10px rgba(0,0,0,0.1);
 }
 
 .theme-blueprint {
-  --os-bg:        #003366;
-  --os-bg-2:      #004080;
-  --os-panel:     rgba(0, 51, 102, 0.95);
-  --os-panel-2:   rgba(0, 64, 128, 0.95);
-  --os-glass:     rgba(0, 51, 102, 0.90);
-  --os-hairline:  rgba(255, 255, 255, 0.2);
-  --os-stroke:    rgba(255, 255, 255, 0.3);
-  --os-ink:       #ffffff;
-  --os-ink-dim:   rgba(255, 255, 255, 0.7);
-  --os-ink-faint: rgba(255, 255, 255, 0.5);
-  --os-iris:      #66b3ff;
-  --os-amber:     #ffcc00;
-  --os-rose:      #ff9999;
-  --os-mint:      #99ffcc;
-  --os-signal:    #66b3ff;
-  --os-warn:      #ffcc00;
-  --os-error:     #ff6666;
-  --shadow-window: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
-  --shadow-glow-iris: 0 0 60px -10px rgba(102,179,255,0.3);
+  --os-bg:        #0f172a;
+  --os-bg-2:      #1e293b;
+  --os-panel:     rgba(15, 23, 42, 0.95);
+  --os-panel-2:   rgba(30, 41, 59, 0.95);
+  --os-glass:     rgba(15, 23, 42, 0.90);
+  --os-hairline:  rgba(56, 189, 248, 0.15);
+  --os-stroke:    rgba(56, 189, 248, 0.25);
+  --os-ink:       #f8fafc;
+  --os-ink-dim:   #94a3b8;
+  --os-ink-faint: #475569;
+  --os-iris:      #38bdf8;
+  --os-amber:     #fbbf24;
+  --os-rose:      #f43f5e;
+  --os-mint:      #34d399;
+  --os-signal:    #38bdf8;
+  --os-warn:      #fbbf24;
+  --os-error:     #ef4444;
+  --shadow-window: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(56,189,248,0.15);
+  --shadow-glow-iris: 0 0 60px -10px rgba(56,189,248,0.3);
 }
 
 @layer base {
