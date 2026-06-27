@@ -2,8 +2,18 @@ import { useState, useRef, useEffect } from "react";
 
 const STATIONS = [
   { title: "Lofi Hip Hop Radio", artist: "Lofi Girl", url: "https://play.streamafrica.net/lofiradio" },
-  { title: "Chillhop Radio", artist: "Chillhop Music", url: "https://studio18.radiolize.com/radio/8220/radio.mp3" },
-  { title: "Ambient Background", artist: "Deep Focus", url: "https://n0a.radiojar.com/0tqw4z013m0uv" },
+  { title: "Groove Salad (Chill)", artist: "SomaFM", url: "https://ice2.somafm.com/groovesalad-128-mp3" },
+  { title: "Drone Zone (Ambient)", artist: "SomaFM", url: "https://ice1.somafm.com/dronezone-128-mp3" },
+  { title: "Underground 80s", artist: "SomaFM", url: "https://ice1.somafm.com/u80s-128-mp3" },
+  { title: "Secret Agent", artist: "SomaFM", url: "https://ice1.somafm.com/secretagent-128-mp3" },
+  { title: "Sonic Universe (Jazz)", artist: "SomaFM", url: "https://ice1.somafm.com/sonicuniverse-128-mp3" },
+  { title: "Deep Space One", artist: "SomaFM", url: "https://ice1.somafm.com/deepspaceone-128-mp3" },
+  { title: "Space Station Soma", artist: "SomaFM", url: "https://ice1.somafm.com/spacestation-128-mp3" },
+  { title: "Indie Pop Rocks!", artist: "SomaFM", url: "https://ice1.somafm.com/indiepop-128-mp3" },
+  { title: "Illinois Street Lounge", artist: "SomaFM", url: "https://ice1.somafm.com/illstreet-128-mp3" },
+  { title: "DEF CON Radio", artist: "SomaFM", url: "https://ice1.somafm.com/defcon-128-mp3" },
+  { title: "Dub Step Beyond", artist: "SomaFM", url: "https://ice1.somafm.com/dubstep-128-mp3" },
+  { title: "Fluid", artist: "SomaFM", url: "https://ice1.somafm.com/fluid-128-mp3" },
 ];
 
 export function MusicApp() {
