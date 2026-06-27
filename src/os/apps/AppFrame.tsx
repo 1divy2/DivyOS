@@ -20,7 +20,7 @@ export function AppFrame({
       )}
       <div className={`flex-1 flex flex-col min-w-0 bg-transparent ${className}`}>
         {header && (
-          <header className="h-14 border-b border-os-hairline flex items-center px-6 shrink-0 bg-os-panel/50 backdrop-blur-md">
+          <header className="h-14 border-b border-os-hairline flex items-center px-6 shrink-0 bg-os-panel-2">
             {header}
           </header>
         )}

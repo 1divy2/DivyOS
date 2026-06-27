@@ -66,7 +66,7 @@ export const WindowFrame = React.memo(function WindowFrame({ id }: { id: string 
   return (
     <motion.div
       ref={nodeRef}
-      className="absolute flex flex-col overflow-hidden glass-strong shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_20px_40px_-10px_rgba(0,0,0,0.5)] will-change-transform"
+      className="absolute flex flex-col overflow-hidden bg-os-panel shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_20px_40px_-10px_rgba(0,0,0,0.5)] will-change-transform"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ x, y, width: w, height: h, opacity: 1, scale: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -122,7 +122,7 @@ export const WindowFrame = React.memo(function WindowFrame({ id }: { id: string 
         </div>
       ) : (
         <div
-          className="h-12 px-4 flex items-center select-none border-b border-white/5 relative shrink-0 bg-white/5 backdrop-blur-md"
+          className="h-12 px-4 flex items-center select-none border-b border-white/5 relative shrink-0 bg-os-panel-2"
           onPointerDown={(e) => {
             if (!win.maximized && !isMobile) dragControls.start(e);
           }}

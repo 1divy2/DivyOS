@@ -95,9 +95,9 @@
   /* Default fallback (cortex) */
   --os-bg:        #0C0A09;
   --os-bg-2:      #1C1917;
-  --os-panel:     rgba(28, 25, 23, 0.88);
-  --os-panel-2:   rgba(68, 64, 60, 0.88);
-  --os-glass:     rgba(28, 25, 23, 0.85);
+  --os-panel:     #141110;
+  --os-panel-2:   #44403C;
+  --os-glass:     #141110;
   --os-hairline:  rgba(255, 255, 255, 0.1);
   --os-stroke:    rgba(255, 255, 255, 0.15);
   --os-ink:       #FAFAF9;
@@ -120,9 +120,9 @@
 .theme-cortex {
   --os-bg:        #0C0A09;
   --os-bg-2:      #1C1917;
-  --os-panel:     rgba(28, 25, 23, 0.88);
-  --os-panel-2:   rgba(68, 64, 60, 0.88);
-  --os-glass:     rgba(28, 25, 23, 0.85);
+  --os-panel:     #141110;
+  --os-panel-2:   #44403C;
+  --os-glass:     #141110;
   --os-ink:       #FAFAF9;
   --os-ink-dim:   #A8A29E;
   --os-ink-faint: #78716C;
@@ -133,9 +133,9 @@
 .theme-retro {
   --os-bg:        #0d0221;
   --os-bg-2:      #1a0b38;
-  --os-panel:     rgba(13, 2, 33, 0.95);
-  --os-panel-2:   rgba(26, 11, 56, 0.95);
-  --os-glass:     rgba(13, 2, 33, 0.90);
+  --os-panel:     #140430;
+  --os-panel-2:   #1a0b38;
+  --os-glass:     #140430;
   --os-hairline:  rgba(255, 0, 127, 0.25);
   --os-stroke:    rgba(0, 240, 255, 0.3);
   --os-ink:       #ffffff;
@@ -155,9 +155,9 @@
 .theme-minimal {
   --os-bg:        #fcfcfc;
   --os-bg-2:      #f5f5f5;
-  --os-panel:     rgba(252, 252, 252, 0.95);
-  --os-panel-2:   rgba(245, 245, 245, 0.95);
-  --os-glass:     rgba(252, 252, 252, 0.90);
+  --os-panel:     #ffffff;
+  --os-panel-2:   #f5f5f5;
+  --os-glass:     #ffffff;
   --os-hairline:  rgba(0, 0, 0, 0.08);
   --os-stroke:    rgba(0, 0, 0, 0.12);
   --os-ink:       #111111;
@@ -177,9 +177,9 @@
 .theme-blueprint {
   --os-bg:        #0f172a;
   --os-bg-2:      #1e293b;
-  --os-panel:     rgba(15, 23, 42, 0.95);
-  --os-panel-2:   rgba(30, 41, 59, 0.95);
-  --os-glass:     rgba(15, 23, 42, 0.90);
+  --os-panel:     #141d33;
+  --os-panel-2:   #1e293b;
+  --os-glass:     #141d33;
   --os-hairline:  rgba(56, 189, 248, 0.15);
   --os-stroke:    rgba(56, 189, 248, 0.25);
   --os-ink:       #f8fafc;
@@ -215,15 +215,11 @@
 @utility hairline { border: 1px solid var(--os-hairline); }
 @utility glass {
   background: var(--os-glass);
-  backdrop-filter: blur(24px) saturate(1.5);
-  -webkit-backdrop-filter: blur(24px) saturate(1.5);
   box-shadow: var(--shadow-soft);
   border: 1px solid var(--os-hairline);
 }
 @utility glass-strong {
   background: var(--os-panel);
-  backdrop-filter: blur(32px) saturate(1.8);
-  -webkit-backdrop-filter: blur(32px) saturate(1.8);
   box-shadow: var(--shadow-medium);
   border: 1px solid var(--os-hairline);
 }
