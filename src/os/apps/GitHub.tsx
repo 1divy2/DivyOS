@@ -11,6 +11,23 @@ type Repo = {
   homepage: string | null;
 };
 
+const CLOUDFLARE_LINKS: Record<string, string> = {
+  "8300-Vault": "https://8300.1divy2.workers.dev",
+  "Pokedex": "https://pokedex-os.pages.dev",
+  "portfolio-2026": "https://portfolio.1divy2.workers.dev",
+  "Tron": "https://tron.1divy2.workers.dev",
+  "DivyOS": "https://divyos.pages.dev",
+  "paths": "https://paths.1divy2.workers.dev",
+  "Pran": "https://pran-d2u.pages.dev",
+  "stockpile-terminal": "https://stockpile.1divy2.workers.dev",
+  "cOrTeX-aI": "https://cortex-ai.1divy2.workers.dev",
+  "OBJEKT": "https://objekt.pages.dev",
+  "manhwavault": "https://manhwavault.pages.dev",
+  "PaperForge": "https://paperforge.1divy2.workers.dev",
+  "OmniList": "https://omnilist.1divy2.workers.dev",
+  "E.I.H": "https://eih-frontend.pages.dev",
+};
+
 export function GitHubApp() {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,22 +61,25 @@ export function GitHubApp() {
           <div className="flex items-center justify-center h-full text-os-text-dim text-[11px]">No repositories found.</div>
         ) : (
           <div className="divide-y divide-[var(--os-hairline)]">
-            {repos.map((p) => (
-              <div key={p.id} className="flex items-center gap-3 px-3 py-2 hover:bg-os-panel-2 group">
-                <span className="text-os-signal w-2">›</span>
-                <a href={p.html_url} target="_blank" rel="noreferrer" className="text-os-text flex-1 truncate hover:underline">{p.name}</a>
-                <span className="text-os-text-faint text-[11px] hidden sm:inline truncate max-w-[30%]">{p.description}</span>
-                
-                {p.homepage && (
-                  <a href={p.homepage.startsWith('http') ? p.homepage : `https://${p.homepage}`} target="_blank" rel="noreferrer" className="text-[10px] uppercase border border-os-hairline px-1.5 py-0.5 rounded text-os-text-dim hover:text-os-signal hover:border-os-signal transition-colors shrink-0">
-                    Live ↗
-                  </a>
-                )}
-                
-                <span className="text-os-text-dim text-[11px] w-16 text-right truncate">{p.language || "—"}</span>
-                <span className="text-os-text-dim text-[11px] tabular-nums w-8 text-right">★{p.stargazers_count}</span>
-              </div>
-            ))}
+            {repos.map((p) => {
+              const liveLink = CLOUDFLARE_LINKS[p.name] || (p.homepage?.startsWith('http') ? p.homepage : (p.homepage ? `https://${p.homepage}` : null));
+              return (
+                <div key={p.id} className="flex items-center gap-3 px-3 py-2 hover:bg-os-panel-2 group">
+                  <span className="text-os-signal w-2">›</span>
+                  <a href={p.html_url} target="_blank" rel="noreferrer" className="text-os-text flex-1 truncate hover:underline">{p.name}</a>
+                  <span className="text-os-text-faint text-[11px] hidden sm:inline truncate max-w-[30%]">{p.description}</span>
+                  
+                  {liveLink && (
+                    <a href={liveLink} target="_blank" rel="noreferrer" className="text-[10px] uppercase border border-os-hairline px-1.5 py-0.5 rounded text-os-text-dim hover:text-os-signal hover:border-os-signal transition-colors shrink-0">
+                      Live ↗
+                    </a>
+                  )}
+                  
+                  <span className="text-os-text-dim text-[11px] w-16 text-right truncate">{p.language || "—"}</span>
+                  <span className="text-os-text-dim text-[11px] tabular-nums w-8 text-right">★{p.stargazers_count}</span>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

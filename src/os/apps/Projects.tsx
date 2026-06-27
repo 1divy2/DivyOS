@@ -1,7 +1,42 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { projects, type Project } from "@/content/projects";
 import { AppFrame } from "./AppFrame";
 import { motion, AnimatePresence } from "motion/react";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+function ProjectReadme({ repoName }: { repoName: string }) {
+  const [readme, setReadme] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    setReadme(null);
+    fetch(`https://api.github.com/repos/1divy2/${repoName}/readme`, {
+      headers: { Accept: "application/vnd.github.v3.raw" }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.text();
+      })
+      .then(text => {
+        setReadme(text);
+        setLoading(false);
+      })
+      .catch(() => {
+        setReadme("No README found.");
+        setLoading(false);
+      });
+  }, [repoName]);
+
+  if (loading) return <div className="text-os-ink-dim text-[12px] animate-pulse py-8">Loading README...</div>;
+
+  return (
+    <div className="prose prose-invert prose-sm max-w-none prose-pre:bg-black/40 prose-pre:border prose-pre:border-os-hairline prose-img:rounded-xl mt-12 pt-8 border-t border-os-hairline">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>{readme || ""}</ReactMarkdown>
+    </div>
+  );
+}
 
 function ProjectCard({ p, onClick }: { p: Project; onClick: () => void }) {
   const isLarge = p.bentoSize === "large";
@@ -154,6 +189,8 @@ export function ProjectsApp({ payload }: { payload?: any }) {
                   </a>
                 )}
               </div>
+              
+              <ProjectReadme repoName={current.name} />
             </motion.div>
           </motion.div>
         ) : (
