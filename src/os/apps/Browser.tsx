@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const LINKS = [
   { name: "GitHub", url: "https://github.com/1divy2", desc: "All the source." },
-  { name: "Lovable", url: "https://lovable.dev", desc: "Built with." },
+  { name: "X (Twitter)", url: "https://x.com/1divy2", desc: "Follow me for updates." },
 ];
 
 export function BrowserApp() {
