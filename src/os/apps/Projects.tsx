@@ -4,6 +4,7 @@ import { AppFrame } from "./AppFrame";
 import { motion, AnimatePresence } from "motion/react";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 function ProjectReadme({ repoName }: { repoName: string }) {
   const [readme, setReadme] = useState<string | null>(null);
@@ -33,7 +34,7 @@ function ProjectReadme({ repoName }: { repoName: string }) {
 
   return (
     <div className="prose prose-invert prose-sm max-w-none prose-pre:bg-black/40 prose-pre:border prose-pre:border-os-hairline prose-img:rounded-xl mt-12 pt-8 border-t border-os-hairline">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{readme || ""}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{readme || ""}</ReactMarkdown>
     </div>
   );
 }
