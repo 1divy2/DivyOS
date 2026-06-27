@@ -86,7 +86,18 @@ export function MinesweeperApp() {
           </div>
         ))}
       </div>
-      <div className="text-os-ink-faint text-[11px]">click reveal · right-click flag</div>
+      
+      <div className="flex items-center gap-4 mt-2">
+        <div className="text-os-ink-faint text-[11px]">click reveal · right-click flag</div>
+        {(dead || won) && (
+          <button 
+            onClick={() => { setGrid(build()); setDead(false); }} 
+            className="px-3 py-1 text-[12px] rounded-md border border-os-hairline bg-white/5 text-os-ink-dim hover:text-os-ink hover:border-os-iris hover:bg-white/10 transition-colors"
+          >
+            Play Again
+          </button>
+        )}
+      </div>
     </div>
   );
 }
