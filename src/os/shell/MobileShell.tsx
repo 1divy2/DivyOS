@@ -29,42 +29,45 @@ export function MobileShell() {
   const dockApps = dockAppIds.map(id => apps.find(a => a.id === id)).filter(Boolean);
 
   // Home screen grid apps
-  const gridApps = apps.filter(a => !dockAppIds.includes(a.id));
+  const gridApps = apps.filter(a => !dockAppIds.includes(a.id) && a.category !== "games");
 
   return (
-    <div className="absolute inset-0 flex flex-col pt-12 pb-6 px-4">
-      {/* At a Glance Widget */}
-      <div className="mt-8 mb-12 flex flex-col items-center">
-        <h1 className="text-5xl font-light text-white tracking-tight drop-shadow-md">
-          {formattedTime.split(" ")[0]}
-        </h1>
-        <div className="text-white/80 font-medium tracking-wide mt-2 drop-shadow-sm flex items-center gap-2">
-          <span>{formattedDate}</span>
-          <span className="text-white/40">•</span>
-          <span>Udaipur ☀️ 32°C</span>
+    <div className="absolute inset-0 flex flex-col">
+      {/* Scrollable Area */}
+      <div className="flex-1 overflow-y-auto pt-12 pb-32 px-4 no-scrollbar">
+        {/* At a Glance Widget */}
+        <div className="mt-8 mb-12 flex flex-col items-center">
+          <h1 className="text-5xl font-light text-white tracking-tight drop-shadow-md">
+            {formattedTime.split(" ")[0]}
+          </h1>
+          <div className="text-white/80 font-medium tracking-wide mt-2 drop-shadow-sm flex items-center gap-2">
+            <span>{formattedDate}</span>
+            <span className="text-white/40">•</span>
+            <span>Udaipur ☀️ 32°C</span>
+          </div>
+        </div>
+
+        {/* Grid Apps */}
+        <div className="grid grid-cols-4 gap-x-4 gap-y-8 content-start pb-8">
+          {gridApps.map(a => (
+            <button 
+              key={a.id} 
+              className="flex flex-col items-center gap-2 group outline-none"
+              onClick={() => openApp(a.id, { title: a.name, size: a.defaultSize })}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/10 group-hover:scale-105 transition-transform shrink-0">
+                <AppIcon id={a.id} size={32} />
+              </div>
+              <span className="text-white text-[11px] font-medium drop-shadow-md truncate w-full text-center">
+                {a.name}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Grid Apps */}
-      <div className="grid grid-cols-4 gap-x-4 gap-y-8 flex-1 content-start">
-        {gridApps.map(a => (
-          <button 
-            key={a.id} 
-            className="flex flex-col items-center gap-2 group outline-none"
-            onClick={() => openApp(a.id, { title: a.name, size: a.defaultSize })}
-          >
-            <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/10 group-hover:scale-105 transition-transform">
-              <AppIcon id={a.id} size={32} />
-            </div>
-            <span className="text-white text-[11px] font-medium drop-shadow-md truncate w-full text-center">
-              {a.name}
-            </span>
-          </button>
-        ))}
-      </div>
-
-      {/* Bottom Android Dock */}
-      <div className="mx-2 p-4 rounded-[2rem] bg-black/20 backdrop-blur-xl border border-white/10 flex justify-around items-center mt-auto">
+      {/* Bottom Android Dock (Fixed) */}
+      <div className="absolute bottom-6 inset-x-6 p-4 rounded-[2rem] bg-black/20 backdrop-blur-xl border border-white/10 flex justify-around items-center z-50 shadow-2xl">
         {dockApps.map(a => (
           <button 
             key={a!.id} 

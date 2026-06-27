@@ -6,23 +6,34 @@ import * as CM from "@radix-ui/react-context-menu";
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "motion/react";
 
 export function Dock() {
-  const dockApps = apps.filter((a) => a.inDock);
   const [isTouch, setIsTouch] = useState(false);
   useEffect(() => { setIsTouch(window.matchMedia("(hover: none)").matches); }, []);
 
-  const mouseX = useMotionValue(Infinity);
+  const mid = Math.ceil(apps.length / 2);
+  const topRowApps = apps.slice(0, mid);
+  const bottomRowApps = apps.slice(mid);
 
   return (
-    <div className="absolute bottom-4 inset-x-0 z-50 flex items-center justify-center pointer-events-none">
-      <div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
-        className="pointer-events-auto flex items-end gap-3 px-4 h-16 glass-strong rounded-2xl relative will-change-transform"
-      >
-        {dockApps.map((a) => {
-          return <DockItem key={a.id} a={a} mouseX={mouseX} isTouch={isTouch} />
-        })}
+    <div className="absolute bottom-4 inset-x-0 z-50 flex flex-col items-center justify-center pointer-events-none gap-2">
+      <div className="pointer-events-auto flex flex-col gap-3 px-4 py-3 glass-strong rounded-3xl relative will-change-transform">
+        <DockRow rowApps={topRowApps} isTouch={isTouch} />
+        <DockRow rowApps={bottomRowApps} isTouch={isTouch} />
       </div>
+    </div>
+  );
+}
+
+function DockRow({ rowApps, isTouch }: { rowApps: typeof apps, isTouch: boolean }) {
+  const mouseX = useMotionValue(Infinity);
+  return (
+    <div
+      onMouseMove={(e) => mouseX.set(e.pageX)}
+      onMouseLeave={() => mouseX.set(Infinity)}
+      className="flex items-end gap-3 justify-center h-12"
+    >
+      {rowApps.map((a) => {
+        return <DockItem key={a.id} a={a} mouseX={mouseX} isTouch={isTouch} />
+      })}
     </div>
   );
 }

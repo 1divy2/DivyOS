@@ -14,7 +14,7 @@ export function AppFrame({
   return (
     <div className="flex h-full w-full bg-os-bg overflow-hidden text-[13px]">
       {sidebar && (
-        <aside className="w-[220px] shrink-0 border-r border-os-hairline bg-os-panel-2 flex flex-col overflow-hidden relative">
+        <aside className="hidden md:flex w-[220px] shrink-0 border-r border-os-hairline bg-os-panel-2 flex-col overflow-hidden relative">
           {sidebar}
         </aside>
       )}
