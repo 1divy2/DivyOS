@@ -13,6 +13,8 @@ export function FlappyApp() {
   const [running, setRunning] = useState(false);
   const [dead, setDead] = useState(false);
 
+  const jumpRef = useRef<() => void>(() => {});
+
   useEffect(() => {
     const c = ref.current; if (!c) return;
     const ctx = c.getContext("2d"); if (!ctx) return;
@@ -31,9 +33,10 @@ export function FlappyApp() {
       else if (dead) { reset(); setRunning(true); }
       else vy = JUMP;
     };
+    
+    jumpRef.current = jump;
 
     const onKey = (e: KeyboardEvent) => { if (e.key === " " || e.key === "ArrowUp") { e.preventDefault(); jump(); } };
-    c.addEventListener("pointerdown", jump);
     window.addEventListener("keydown", onKey);
 
     const draw = () => {
@@ -108,7 +111,7 @@ export function FlappyApp() {
       raf = requestAnimationFrame(draw);
     };
     raf = requestAnimationFrame(draw);
-    return () => { cancelAnimationFrame(raf); c.removeEventListener("pointerdown", jump); window.removeEventListener("keydown", onKey); };
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("keydown", onKey); };
   }, [running, dead]);
 
   return (
@@ -117,7 +120,13 @@ export function FlappyApp() {
         <span className="text-os-ink-faint">SCORE <span className="text-os-amber font-mono ml-1">{score}</span></span>
         <span className="text-os-ink-faint">BEST <span className="text-os-mint font-mono ml-1">{best}</span></span>
       </div>
-      <canvas ref={ref} width={W} height={H} className="rounded-xl border border-os-hairline cursor-pointer" />
+      <canvas 
+        ref={ref} 
+        width={W} 
+        height={H} 
+        onClick={() => jumpRef.current()}
+        className="rounded-xl border border-os-hairline cursor-pointer touch-none" 
+      />
     </div>
   );
 }
