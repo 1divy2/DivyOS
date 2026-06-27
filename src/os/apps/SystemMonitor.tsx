@@ -19,8 +19,10 @@ export function SystemMonitorApp() {
       frames++;
       const now = performance.now();
       if (now - last >= 1000) {
-        setFps(frames);
-        setFpsHist((h) => [...h.slice(-39), frames]);
+        const elapsed = now - last;
+        const actualFps = Math.round((frames * 1000) / elapsed);
+        setFps(actualFps);
+        setFpsHist((h) => [...h.slice(-39), actualFps]);
         frames = 0;
         last = now;
         const m = (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory;
