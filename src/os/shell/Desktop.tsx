@@ -47,7 +47,8 @@ export function Desktop() {
       if (!sessionStorage.getItem(flag)) {
         sessionStorage.setItem(flag, "1");
         setTimeout(() => {
-          open("about", { title: "About", size: { w: 760, h: 640 } });
+          const id = open("about", { title: "About", size: { w: 760, h: 640 } });
+          useOS.getState().resize(id, 760, 640);
         }, 500);
       }
     }
