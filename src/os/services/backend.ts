@@ -8,9 +8,9 @@ import { getFirestore, collection, addDoc, getDocs, orderBy, query } from "fireb
 
 // --- CONFIGURATION ---
 // 1. Get these from https://dashboard.emailjs.com/
-const EMAILJS_SERVICE_ID = "YOUR_EMAILJS_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "service_0qfil8u";
+const EMAILJS_TEMPLATE_ID = "template_ti6hs5w";
+const EMAILJS_PUBLIC_KEY = "ayfTC8Q_XPMaG-CNi";
 
 // 2. Get these from https://console.firebase.google.com/
 const FIREBASE_CONFIG = {
