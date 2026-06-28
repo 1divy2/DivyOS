@@ -42,8 +42,14 @@ export function Desktop() {
   }, [phase, visitor]);
 
   useEffect(() => {
-    if (phase === "desktop" && windows.length === 0) {
-      open("about", { title: "About", size: { w: 620, h: 520 } });
+    if (phase === "desktop") {
+      const flag = `divyos:about_opened:${useSession.getState().sessionStartedAt}`;
+      if (!sessionStorage.getItem(flag)) {
+        sessionStorage.setItem(flag, "1");
+        setTimeout(() => {
+          open("about", { title: "About", size: { w: 620, h: 520 } });
+        }, 500);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);

@@ -47,6 +47,9 @@ export function Login() {
       // We don't await the email to avoid making them wait too long if EmailJS is slow
       sendWelcomeEmail(name, email);
       login(name);
+      setTimeout(() => {
+        openApp("about", { title: "About", size: { w: 620, h: 520 } });
+      }, 500);
     } catch (e) {
       setError("Failed to verify. Please try again.");
       setLoading(false);
