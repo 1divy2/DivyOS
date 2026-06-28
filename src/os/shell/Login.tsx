@@ -48,7 +48,7 @@ export function Login() {
       sendWelcomeEmail(name, email);
       login(name);
       setTimeout(() => {
-        openApp("about", { title: "About", size: { w: 620, h: 520 } });
+        openApp("about", { title: "About", size: { w: 760, h: 640 } });
       }, 500);
     } catch (e) {
       setError("Failed to verify. Please try again.");

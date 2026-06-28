@@ -45,7 +45,7 @@ export const apps: AppDef[] = [
 
 
   // Personal
-  { id: "about", name: "About", glyph: "◔", component: AboutApp, defaultSize: { w: 640, h: 560 }, description: "Who is Divy", inDock: true, category: "personal" },
+  { id: "about", name: "About", glyph: "◔", component: AboutApp, defaultSize: { w: 760, h: 640 }, description: "Who is Divy", inDock: true, category: "personal" },
   { id: "projects", name: "Projects", glyph: "◫", component: ProjectsApp, defaultSize: { w: 880, h: 560 }, description: "Real repos from GitHub", inDock: true, category: "personal" },
   { id: "resume", name: "Resume", glyph: "≡", component: ResumeApp, defaultSize: { w: 680, h: 600 }, description: "CV — view / print / download", inDock: true, category: "personal" },
   { id: "skills", name: "Skills", glyph: "◇", component: SkillsApp, defaultSize: { w: 640, h: 480 }, description: "Stack & tooling", category: "personal" },
