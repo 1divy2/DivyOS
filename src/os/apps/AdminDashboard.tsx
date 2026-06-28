@@ -26,20 +26,6 @@ export function AdminDashboardApp() {
       </div>
 
       <div className="flex-1 overflow-auto p-6 space-y-6">
-        <div className="p-4 border border-os-hairline bg-os-panel rounded-xl text-[12px] leading-relaxed text-os-text-dim">
-          <strong className="text-os-text mb-2 block">System Status: MOCK DATABASE ACTIVE</strong>
-          Because DivyOS is a static site without a backend server, it is currently saving these visitors in your browser's local storage. To make this list work globally (so you can see visitors from other computers), you need to connect a database.
-          <br /><br />
-          <strong>Next Steps for Divy:</strong>
-          <ol className="list-decimal pl-5 mt-2 space-y-1">
-            <li>Create a free account at <a href="https://firebase.google.com" target="_blank" className="text-os-iris hover:underline">Firebase</a>.</li>
-            <li>Create a Firestore database.</li>
-            <li>Create a free account at <a href="https://emailjs.com" target="_blank" className="text-os-iris hover:underline">EmailJS</a> to send auto-emails.</li>
-            <li>Open <code className="text-os-signal">src/services/backend.ts</code> and paste your API keys.</li>
-            <li>Uncomment the real Firebase code in that file.</li>
-          </ol>
-        </div>
-
         <div>
           <div className="text-os-text-faint text-[11px] uppercase tracking-widest mb-3">Visitor Log</div>
           <div className="border border-os-hairline rounded-lg overflow-hidden bg-white/5">
