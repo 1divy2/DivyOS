@@ -49,14 +49,14 @@ function DockItem({ a, mouseX, isTouch }: any) {
   const ref = useRef<HTMLButtonElement>(null);
   const [hovered, setHovered] = useState(false);
   
-  const distance = useTransform(mouseX, (val) => {
+  const distance = useTransform(mouseX, (val: number) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
 
   const widthSync = useTransform(distance, [-100, 0, 100], [48, 80, 48]);
   const targetWidth = isTouch ? 48 : widthSync;
-  const width = useSpring(targetWidth, { mass: 0.1, stiffness: 150, damping: 12 });
+  const width = useSpring(targetWidth as any, { mass: 0.1, stiffness: 150, damping: 12 });
 
   return (
     <CM.Root>

@@ -26,7 +26,7 @@ import { PongApp } from "./apps/games/Pong";
 import { BreakoutApp } from "./apps/games/Breakout";
 import { AsteroidsApp } from "./apps/games/Asteroids";
 
-import { AdminDashboardApp } from "./apps/AdminDashboard";
+
 
 export type AppDef = {
   id: string;
@@ -42,7 +42,7 @@ export type AppDef = {
 
 export const apps: AppDef[] = [
   // Admin
-  { id: "admin", name: "Admin Dashboard", glyph: "🛡", component: AdminDashboardApp, defaultSize: { w: 800, h: 600 }, description: "Security", hidden: true, category: "system" },
+
 
   // Personal
   { id: "about", name: "About", glyph: "◔", component: AboutApp, defaultSize: { w: 640, h: 560 }, description: "Who is Divy", inDock: true, category: "personal" },

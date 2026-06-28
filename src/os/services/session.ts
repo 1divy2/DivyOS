@@ -5,6 +5,7 @@ export type SessionPhase =
   | "boot"
   | "login"
   | "desktop"
+  | "admin_dashboard"
   | "locked"
   | "shutting-down"
   | "restarting"
@@ -19,6 +20,7 @@ type SessionState = {
   setPhase: (p: SessionPhase) => void;
   completeBoot: () => void;
   login: (name: string) => void;
+  loginAdmin: () => void;
   logout: () => void;
   lock: () => void;
   unlock: () => void;
@@ -51,6 +53,8 @@ export const useSession = create<SessionState>()(
         const clean = name.trim().slice(0, 24) || "guest";
         set({ visitorName: clean, phase: "desktop", sessionStartedAt: Date.now() });
       },
+
+      loginAdmin: () => set({ phase: "admin_dashboard" }),
 
       logout: () => set({ visitorName: null, phase: "login" }),
 

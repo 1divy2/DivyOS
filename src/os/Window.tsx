@@ -29,16 +29,17 @@ export const WindowFrame = React.memo(function WindowFrame({ id }: { id: string 
   const resz = useRef<{ ow: number; oh: number; x: number; y: number } | null>(null);
   const [localSize, setLocalSize] = useState<{ w: number; h: number } | null>(null);
   const [snapPreview, setSnapPreview] = useState<"l" | "r" | "f" | null>(null);
-  const app = byId(win.appId);
+  const app = byId(win?.appId || "");
   const isMobile = vp.w < 640;
   const nodeRef = useRef<HTMLDivElement>(null);
+
+  if (!win || !app || win.minimized) return null;
 
   const x = isMobile ? 0 : win.maximized ? 0 : win.x;
   const y = isMobile ? 0 : win.maximized ? LAYOUT.TOP_BAR : win.y;
   const w = isMobile ? vp.w : localSize ? localSize.w : win.w;
   const h = isMobile ? vp.h : localSize ? localSize.h : win.h;
 
-  if (!win || !app || win.minimized) return null;
   const Comp = app.component;
 
   const onResizeStart = (e: RPE<HTMLDivElement>) => {

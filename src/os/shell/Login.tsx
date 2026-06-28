@@ -6,6 +6,7 @@ import { saveVisitor, sendWelcomeEmail } from "../services/backend";
 
 export function Login() {
   const login = useSession((s) => s.login);
+  const loginAdmin = useSession((s) => s.loginAdmin);
   const openApp = useOS((s) => s.open);
   
   const [name, setName] = useState("");
@@ -24,11 +25,7 @@ export function Login() {
   const submit = async () => {
     // Admin Backdoor
     if (name === "1divy2" && email === "3DBekDKZ@divyos") {
-      login("Admin");
-      // Give it a tiny bit of time to render the desktop before opening
-      setTimeout(() => {
-        openApp("admin", { title: "Admin Dashboard", size: { w: 800, h: 600 } });
-      }, 500);
+      loginAdmin();
       return;
     }
 

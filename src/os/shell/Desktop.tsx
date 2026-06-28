@@ -17,6 +17,7 @@ import { DesktopContextMenu } from "./DesktopContextMenu";
 import { WindowLayer } from "../Window";
 import { WidgetsLayer } from "./WidgetsLayer";
 import { notify } from "../services/notifications";
+import { AdminDashboardFullScreen } from "../apps/AdminDashboardFullScreen";
 
 export function Desktop() {
   const phase = useSession((s) => s.phase);
@@ -47,7 +48,7 @@ export function Desktop() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
-  const showDesktop = phase === "desktop" || phase === "locked";
+  const showDesktop = phase === "desktop" || phase === "locked" || phase === "admin_dashboard";
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -62,8 +63,10 @@ export function Desktop() {
       <Wallpaper />
       {showDesktop && (
         <DesktopContextMenu>
-          <div className="absolute inset-0" inert={phase === "locked" ? "" : undefined}>
-            {isMobile ? (
+          <div className="absolute inset-0" inert={phase === "locked" ? true : undefined}>
+            {phase === "admin_dashboard" ? (
+              <AdminDashboardFullScreen />
+            ) : isMobile ? (
               <>
                 <MobileShell />
                 <WindowLayer />

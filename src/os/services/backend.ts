@@ -29,7 +29,7 @@ const db = getFirestore(firebaseApp);
 
 // Check if keys are set (so it doesn't crash before you configure them)
 const isFirebaseConfigured = true;
-const isEmailJSConfigured = EMAILJS_SERVICE_ID !== "YOUR_EMAILJS_SERVICE_ID";
+const isEmailJSConfigured = (EMAILJS_SERVICE_ID as string) !== "YOUR_EMAILJS_SERVICE_ID";
 
 export interface VisitorRecord {
   id: string;
