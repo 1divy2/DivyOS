@@ -3,6 +3,8 @@
 // For now, this uses localStorage to mock the database until you configure the real keys.
 
 import { notify } from "./notifications";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc, getDocs, orderBy, query } from "firebase/firestore";
 
 // --- CONFIGURATION ---
 // 1. Get these from https://dashboard.emailjs.com/
@@ -12,16 +14,21 @@ const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
 
 // 2. Get these from https://console.firebase.google.com/
 const FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAo791iUmzFJENtFNaDKElMp5Q2n0H0sLE",
+  authDomain: "divyos.firebaseapp.com",
+  projectId: "divyos",
+  storageBucket: "divyos.firebasestorage.app",
+  messagingSenderId: "415588874501",
+  appId: "1:415588874501:web:a4c92920926e5f539ddf6c",
+  measurementId: "G-M36JTHJQLS"
 };
 
+// Initialize Firebase
+const firebaseApp = initializeApp(FIREBASE_CONFIG);
+const db = getFirestore(firebaseApp);
+
 // Check if keys are set (so it doesn't crash before you configure them)
-const isFirebaseConfigured = FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY";
+const isFirebaseConfigured = true;
 const isEmailJSConfigured = EMAILJS_SERVICE_ID !== "YOUR_EMAILJS_SERVICE_ID";
 
 export interface VisitorRecord {
@@ -43,15 +50,12 @@ export async function saveVisitor(name: string, email: string): Promise<void> {
   };
 
   if (isFirebaseConfigured) {
-    // REAL FIREBASE CODE (Uncomment when you install firebase)
-    /*
-    import { initializeApp } from "firebase/app";
-    import { getFirestore, collection, addDoc } from "firebase/firestore";
-    const app = initializeApp(FIREBASE_CONFIG);
-    const db = getFirestore(app);
-    await addDoc(collection(db, "visitors"), visitor);
-    */
-    console.log("Saved to real Firebase!");
+    try {
+      await addDoc(collection(db, "visitors"), visitor);
+      console.log("Saved to real Firebase!");
+    } catch (e) {
+      console.error("Error saving to Firebase:", e);
+    }
   } else {
     // MOCK DATABASE USING LOCAL STORAGE
     const existing = JSON.parse(localStorage.getItem("divyos_visitors") || "[]");
@@ -63,17 +67,14 @@ export async function saveVisitor(name: string, email: string): Promise<void> {
 
 export async function getVisitors(): Promise<VisitorRecord[]> {
   if (isFirebaseConfigured) {
-    // REAL FIREBASE CODE (Uncomment when you install firebase)
-    /*
-    import { initializeApp } from "firebase/app";
-    import { getFirestore, collection, getDocs, orderBy, query } from "firebase/firestore";
-    const app = initializeApp(FIREBASE_CONFIG);
-    const db = getFirestore(app);
-    const q = query(collection(db, "visitors"), orderBy("timestamp", "desc"));
-    const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as VisitorRecord));
-    */
-    return [];
+    try {
+      const q = query(collection(db, "visitors"), orderBy("timestamp", "desc"));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as VisitorRecord));
+    } catch (e) {
+      console.error("Error fetching from Firebase:", e);
+      return [];
+    }
   } else {
     // MOCK DATABASE
     const existing = JSON.parse(localStorage.getItem("divyos_visitors") || "[]");
