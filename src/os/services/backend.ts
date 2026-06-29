@@ -12,15 +12,14 @@ const EMAILJS_SERVICE_ID = "service_0qfil8u";
 const EMAILJS_TEMPLATE_ID = "template_ti6hs5w";
 const EMAILJS_PUBLIC_KEY = "ayfTC8Q_XPMaG-CNi";
 
-// 2. Get these from https://console.firebase.google.com/
 const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyAo791iUmzFJENtFNaDKElMp5Q2n0H0sLE",
-  authDomain: "divyos.firebaseapp.com",
-  projectId: "divyos",
-  storageBucket: "divyos.firebasestorage.app",
-  messagingSenderId: "415588874501",
-  appId: "1:415588874501:web:a4c92920926e5f539ddf6c",
-  measurementId: "G-M36JTHJQLS"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "YOUR_API_KEY",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "divyos.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "divyos",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "divyos.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "415588874501",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:415588874501:web:a4c92920926e5f539ddf6c",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-M36JTHJQLS"
 };
 
 // Initialize Firebase
