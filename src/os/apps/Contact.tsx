@@ -10,7 +10,7 @@ export function ContactApp() {
         <dt className="text-os-text-dim">github</dt>
         <dd><a className="text-os-signal hover:underline" href={identity.links.github} target="_blank" rel="noreferrer">{identity.links.github}</a></dd>
         <dt className="text-os-text-dim">linkedin</dt>
-        <dd className="text-os-text">{identity.links.linkedin}</dd>
+        <dd><a className="text-os-signal hover:underline break-all" href={identity.links.linkedin} target="_blank" rel="noreferrer">{identity.links.linkedin}</a></dd>
         <dt className="text-os-text-dim">location</dt>
         <dd className="text-os-text">{identity.location}</dd>
       </dl>
